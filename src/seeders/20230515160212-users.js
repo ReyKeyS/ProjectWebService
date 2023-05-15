@@ -19,6 +19,7 @@ module.exports = {
       password: "admin",
       display_name: "Administrator",
       roles: 0,
+      api_key: "4a23b92a-f33c-11ed-89d3-d8bbc15c8839",
       status: 1,
       createdAt: new Date(),
       updatedAt: new Date(),

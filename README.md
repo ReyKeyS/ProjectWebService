@@ -11,6 +11,7 @@ npm i           --> Install node modules
 ### (Sekali setup Migration)
 - npx sequelize-cli db:create
 - npx sequelize-cli db:migrate
+- npx sequelize-cli db:seed:all
 
 -----------------------------------------------------
 ## Buat Migrate Database
@@ -27,3 +28,6 @@ Create table : npx sequelize-cli models:generate --name <NamaTable> --attributes
 
 ### **Seeder**
 
+Create seed : npx sequelize-cli seed:generate --name users
+
+-----------------------------------------------------
