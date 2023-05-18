@@ -43,9 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     api_hit: {
       type: DataTypes.INTEGER
     },
-    status: {
-      type: DataTypes.INTEGER
-    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE
@@ -55,7 +52,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     deletedAt: {
-      allowNull: false,
       type: DataTypes.DATE
     }
   }, {

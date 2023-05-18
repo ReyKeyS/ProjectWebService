@@ -10,6 +10,36 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "ryks",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "ryk123",
+							"type": "default"
+						},
+						{
+							"key": "confirm_password",
+							"value": "ryk123",
+							"type": "default"
+						},
+						{
+							"key": "display_name",
+							"value": "ReyKeys",
+							"type": "default"
+						},
+						{
+							"key": "roles",
+							"value": "1",
+							"type": "default"
+						}
+					]
+				},
 				"url": {
 					"raw": "localhost:3000/api/v1/register",
 					"host": [

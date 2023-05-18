@@ -29,9 +29,6 @@ module.exports = {
       api_hit: {
         type: Sequelize.INTEGER
       },
-      status: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
