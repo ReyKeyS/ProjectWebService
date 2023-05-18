@@ -13,6 +13,9 @@ npm i           --> Install node modules
 - npx sequelize-cli db:migrate
 - npx sequelize-cli db:seed:all
 
+### Start project
+npm start
+
 -----------------------------------------------------
 ## Buat Migrate Database
 

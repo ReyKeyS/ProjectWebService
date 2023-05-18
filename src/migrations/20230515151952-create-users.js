@@ -23,9 +23,6 @@ module.exports = {
       profpic: {
         type: Sequelize.STRING
       },
-      api_key: {
-        type: Sequelize.STRING
-      },
       api_hit: {
         type: Sequelize.INTEGER
       },

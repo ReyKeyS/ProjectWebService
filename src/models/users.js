@@ -37,9 +37,6 @@ module.exports = (sequelize, DataTypes) => {
     profpic: {
       type: DataTypes.STRING
     },
-    api_key: {
-      type: DataTypes.STRING
-    },
     api_hit: {
       type: DataTypes.INTEGER
     },
