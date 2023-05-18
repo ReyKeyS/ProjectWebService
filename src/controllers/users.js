@@ -11,7 +11,6 @@ const schema = require("../utils/validation/index");
 const { users, cities, shippings } = require("../models");
 
 
-// REGISTER
 const registerUser = async (req, res) => {
     const { username, password, confirm_password, display_name, roles } = req.body
 
@@ -62,13 +61,13 @@ const registerUser = async (req, res) => {
 
     return res.status(201).send({
         message: "Berhasil Register", data: {
-        username: username,
-        display_name: display_name,
-        roles: role }
+            username: username,
+            display_name: display_name,
+            roles: role
+        }
     })
 }
 
-// LOGIN
 const loginUser = async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -76,20 +75,20 @@ const loginUser = async (req, res) => {
     }
 
     // Cek user terdaftar
-    const userQuery = await users.findOne({where: {username: username}})
-    if (userQuery == null) return res.status(404).send({message: "User belum terdaftar"})
+    const userQuery = await users.findOne({ where: { username: username } })
+    if (userQuery == null) return res.status(404).send({ message: "User belum terdaftar" })
 
     // Cek password
     user = userQuery.dataValues;
     const cekPassword = await bcrypt.compare(password, user.password);
-    if (!cekPassword) return res.status(400).send({message: "Password salah"})
-    
+    if (!cekPassword) return res.status(400).send({ message: "Password salah" })
+
     user.password = undefined;
     // JWT
     const accessToken = jwt.sign(
         { user },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5m"}
+        { expiresIn: "5m" }
     )
 
     return res.status(200).send({
@@ -100,7 +99,19 @@ const loginUser = async (req, res) => {
     })
 }
 
+const updateUser = async (req, res) => {}
+
+const topUpSaldo = async (req, res) => {}
+
+const subscribe = async (req, res) => {}
+
+const takeOrder = async (req, res) => {}
+
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    updateUser,
+    topUpSaldo,
+    subscribe,
+    takeOrder
 }

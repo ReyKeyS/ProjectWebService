@@ -9,9 +9,12 @@ app.use(express.json());
 
 // Routes
 const usersRouter = require('./routes/users');
+const adminRouter = require('./routes/admin');
+const shippingRouter = require('./routes/shipping');
 
 // App Use
-app.use("/api/v1", usersRouter);
-
+app.use("/api/", usersRouter);
+app.use("/api/admin", adminRouter);
+app.use("/api/shipping", shippingRouter);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -41,15 +41,48 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:3000/api/v1/register",
+					"raw": "localhost:3000/api/register",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
 						"api",
-						"v1",
 						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "ryks",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "ryk123",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login"
 					]
 				}
 			},
