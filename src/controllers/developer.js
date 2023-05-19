@@ -69,7 +69,9 @@ const registerDev = async (req, res) => {
     })
 }
 
-const updateDev = async (req, res) => {}
+const updateDev = async (req, res) => {
+    
+}
 
 const topup = async (req, res) => {}
 

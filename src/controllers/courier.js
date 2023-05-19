@@ -1,4 +1,7 @@
 // Req
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
@@ -10,9 +13,63 @@ const schema = require("../utils/validation/index");
 // Models
 const { users, cities, shippings } = require("../models");
 
+// Function multer
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        const folderName = `uploads/KTP_Kurir`;
+
+        if (!fs.existsSync(folderName)) {
+            fs.mkdirSync(folderName, { recursive: true });
+        }
+
+        callback(null, folderName);
+    },
+    filename: (req, file, callback) => {
+        console.log(file);
+        const fileExtension = path.extname(file.originalname).toLowerCase();
+
+        if (file.fieldname == "foto_ktp") {
+            callback(null, `ktp_${req.body.username}${fileExtension}`);
+        } else {
+            callback(null, false);
+        }
+    },
+});
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 10000000, // 10mb
+    },
+    fileFilter: (req, file, callback) => {
+        // buat aturan dalam bentuk regex, mengenai extension apa saja yang diperbolehkan
+        const rules = /jpeg|jpg|png/;
+
+        const fileExtension = path.extname(file.originalname).toLowerCase();
+        const fileMimeType = file.mimetype;
+
+        const cekExt = rules.test(fileExtension);
+        const cekMime = rules.test(fileMimeType);
+
+        if (cekExt && cekMime) {
+            callback(null, true);
+        } else {
+            callback(null, false);
+            return callback(
+                new multer.MulterError(
+                    "Tipe file harus .jpg, .jpeg, atau .png",
+                    file.fieldname
+                )
+            );
+        }
+    },
+});
+
+
 
 const registerCourier = async (req, res) => {
-    const { username, password, confirm_password, display_name, no_telp } = req.body
+    console.log(req.body);
+    const { username, password, confirm_password, display_name, no_telp, foto_ktp } = req.body
 
     // Validation
     try {
@@ -35,7 +92,7 @@ const registerCourier = async (req, res) => {
     // Cek username available
     const cekUsername = await users.findOne({ where: { username: username } })
     if (cekUsername != null) return res.status(400).send({ message: "Username sudah terpakai" })
-    
+
     // Password
     let hashedPassword;
     await bcrypt.hash(password, 10).then((hash) => {
@@ -46,6 +103,19 @@ const registerCourier = async (req, res) => {
     let newID = "US"
     const currMax = await users.count({ where: { user_id: { [Op.like]: "US%" } } })
     newID += (parseInt(currMax) + 1).toString().padStart(3, '0');
+
+    // Upload KTP
+    const uploadingFile = upload.single("foto_ktp");
+    uploadingFile(req, res, (err) => {
+        if (err) {
+            console.log(err);
+            return res
+                .status(400)
+                .send((err.message || err.code) + " pada field " + err.field);
+        }
+        const body = req.body;
+        return res.status(200).json(body);
+    });
 
     const add = await users.create({
         user_id: newID,
@@ -65,17 +135,17 @@ const registerCourier = async (req, res) => {
     })
 }
 
-const updateCourier = async (req, res) => {}
+const updateCourier = async (req, res) => { }
 
 
-const takeOrder = async (req, res) => {}
+const takeOrder = async (req, res) => { }
 
-const cancelShipping = async (req, res) => {}
+const cancelShipping = async (req, res) => { }
 
 module.exports = {
-    registerCourier, 
+    registerCourier,
     updateCourier,
-    
+
     takeOrder,
     cancelShipping
 }

@@ -69,32 +69,37 @@
 						"method": "POST",
 						"header": [],
 						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
+							"mode": "formdata",
+							"formdata": [
 								{
 									"key": "username",
 									"value": "sakul",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "password",
 									"value": "skl123",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "confirm_password",
 									"value": "skl123",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "display_name",
 									"value": "RTMX",
-									"type": "default"
+									"type": "text"
 								},
 								{
 									"key": "no_telp",
 									"value": "081234567890",
-									"type": "default"
+									"type": "text"
+								},
+								{
+									"key": "foto_ktp",
+									"type": "file",
+									"src": "/D:/WebService/Proyek/fotofoto/ktp.jpg"
 								}
 							]
 						},
@@ -125,12 +130,12 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "ryks",
+							"value": "sakul",
 							"type": "default"
 						},
 						{
 							"key": "password",
-							"value": "ryk123",
+							"value": "skl123",
 							"type": "default"
 						}
 					]
