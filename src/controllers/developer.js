@@ -71,7 +71,7 @@ const registerDev = async (req, res) => {
 }
 
 const updateDev = async (req, res) => {
-    const user = req.user;
+    const user = await users.findByPk(req.user.user_id)
 
     const { display_name, email } = req.body;
 
@@ -113,7 +113,7 @@ const updateDev = async (req, res) => {
 }
 
 const topup = async (req, res) => {
-    const user = req.user
+    const user = await users.findByPk(req.user.user_id)
 
     const { amount } = req.body
 
@@ -137,6 +137,7 @@ const topup = async (req, res) => {
     
     // Top Up   
     let newSaldo = parseInt(user.saldo) + parseInt(amount)
+
     // Update DB
     await users.update({
         saldo: newSaldo
