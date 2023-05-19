@@ -99,19 +99,18 @@ const loginUser = async (req, res) => {
     })
 }
 
-const updateUser = async (req, res) => {}
+const getLatest = async (req, res) => {}
 
-const topUpSaldo = async (req, res) => {}
+const detailShipping = async (req, res) => {}
 
-const subscribe = async (req, res) => {}
+const weatherShipping = async (req, res) => {}
 
-const takeOrder = async (req, res) => {}
+const updateShipping = async (req, res) => {}
 
 module.exports = {
-    registerUser,
     loginUser,
-    updateUser,
-    topUpSaldo,
-    subscribe,
-    takeOrder
+    getLatest,
+    detailShipping,
+    weatherShipping,
+    updateShipping
 }

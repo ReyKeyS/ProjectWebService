@@ -34,3 +34,6 @@ Create table : npx sequelize-cli model:generate --name <NamaTable> --attributes 
 Create seed : npx sequelize-cli seed:generate --name users
 
 -----------------------------------------------------
+
+## Daftar City
+https://github.com/cahyadsn/db_rajaongkir/blob/master/db_rajaongkir.sql

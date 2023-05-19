@@ -9,11 +9,11 @@ module.exports = {
         type: Sequelize.STRING
       },
       city_from: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: { model: 'cities', key: 'city_id' }
       },
       city_to: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references: { model: 'cities', key: 'city_id' }
       },
       status: {
