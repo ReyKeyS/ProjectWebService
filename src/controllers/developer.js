@@ -58,6 +58,7 @@ const registerDev = async (req, res) => {
         password: hashedPassword,
         display_name: display_name,
         roles: "dev",
+        api_quota: 10,
         saldo: 0
     })
 
@@ -100,10 +101,10 @@ const updateDev = async (req, res) => {
     }
 
     // Update DB
-    await users.update({
+    await user.update({
         display_name: newName,
         email: newEmail,
-    },{ where: { user_id: user.user_id} });
+    });
 
     return res.status(201).send({message: "Updated Successfully", data: {
         username: user.username,
@@ -139,9 +140,7 @@ const topup = async (req, res) => {
     let newSaldo = parseInt(user.saldo) + parseInt(amount)
 
     // Update DB
-    await users.update({
-        saldo: newSaldo
-    },{ where: { user_id: user.user_id} });
+    await user.update({ saldo: newSaldo });
 
     return res.status(201).send({message: "Updated Successfully", data: {
         username: user.username,
@@ -149,7 +148,37 @@ const topup = async (req, res) => {
     }})
 }
 
-const subscribe = async (req, res) => {}
+const subscribe = async (req, res) => {
+    const user = await users.findByPk(req.user.user_id)
+
+    const { subscription_package } = req.body;
+
+    if (!subscription_package) return res.status(400).send({message: "Field harus diisi"})
+
+    // Cek paket
+    let plus, price;
+    if (subscription_package.toLowerCase() == "bronze"){
+        plus = 10; price = 10000
+    }else if (subscription_package.toLowerCase() == "silver"){
+        plus = 25; price = 20000
+    }else if (subscription_package.toLowerCase() == "gold"){
+        plus = 55; price = 30000
+    }else return res.status(400).send({message: "Subscription Package must be Bronze, Silver or Gold"})
+    let newQuota = parseInt(user.api_quota) + parseInt(plus)
+
+    // Cek saldo
+    if (user.saldo < price) return res.status(400).send({message: "Saldo tidak mencukupi"})
+    let newSaldo = parseInt(user.saldo) - parseInt(price)
+
+    // Update DB
+    await user.update({ saldo: newSaldo, api_quota: newQuota})
+
+    return res.status(200).send({
+        message: `Berhasil membeli paket ${subscription_package}`,
+        sisa_saldo: newSaldo,
+        api_quota: newQuota
+    })
+}
 
 
 const getCourierQuery = async (req, res) => {}

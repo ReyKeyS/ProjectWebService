@@ -57,6 +57,131 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Data Developer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6bnVsbCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTE5VDEyOjQ3OjAzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTE5VDE0OjQ5OjMxLjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1MDc5MDUsImV4cCI6MTY4NDU5NDMwNX0.Et1rQIRtHVfBo1zS18gdv_phYUjOMwN87Waj4Rh72Ho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "ryks@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "display_name",
+									"value": "ReyKey",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/dev/update",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Top Up Saldo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6bnVsbCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTE5VDEyOjQ3OjAzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTE5VDE0OjQ5OjMxLjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1MDc5MDUsImV4cCI6MTY4NDU5NDMwNX0.Et1rQIRtHVfBo1zS18gdv_phYUjOMwN87Waj4Rh72Ho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "amount",
+									"value": "5000",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/dev/topup",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"topup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Subscribe",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6bnVsbCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTE5VDEyOjQ3OjAzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTE5VDE0OjQ5OjMxLjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1MDc5MDUsImV4cCI6MTY4NDU5NDMwNX0.Et1rQIRtHVfBo1zS18gdv_phYUjOMwN87Waj4Rh72Ho",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "subscription_package",
+									"value": "bronze",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/dev/subscribe",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"subscribe"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -130,12 +255,12 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "sakul",
+							"value": "ryks",
 							"type": "default"
 						},
 						{
 							"key": "password",
-							"value": "skl123",
+							"value": "ryk123",
 							"type": "default"
 						}
 					]

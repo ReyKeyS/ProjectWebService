@@ -22,7 +22,7 @@ const middleware = require("../middleware");
 router.post("/register", registerDev)
 router.put("/update", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], updateDev)
 router.put("/topup", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], topup)
-router.post("/subscribe", subscribe)
+router.post("/subscribe", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], subscribe)
 
 router.get("/couriers/", getCourierQuery)
 router.get("/couriers/:user_id", getCourierParams)
