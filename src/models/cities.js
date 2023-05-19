@@ -40,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     raja_id_province: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       references: { model: 'provinces', key: 'province_id' }
     },
     postal_code: {

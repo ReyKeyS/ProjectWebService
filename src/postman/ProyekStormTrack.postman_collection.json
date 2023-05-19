@@ -6,53 +6,114 @@
 	},
 	"item": [
 		{
-			"name": "Register",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "username",
-							"value": "ryks",
-							"type": "default"
+			"name": "Developer",
+			"item": [
+				{
+					"name": "Register Developer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "ryks",
+									"type": "default"
+								},
+								{
+									"key": "email",
+									"value": "ryk@gmail.com",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "ryk123",
+									"type": "default"
+								},
+								{
+									"key": "confirm_password",
+									"value": "ryk123",
+									"type": "default"
+								},
+								{
+									"key": "display_name",
+									"value": "ReyKeys",
+									"type": "default"
+								}
+							]
 						},
-						{
-							"key": "password",
-							"value": "ryk123",
-							"type": "default"
-						},
-						{
-							"key": "confirm_password",
-							"value": "ryk123",
-							"type": "default"
-						},
-						{
-							"key": "display_name",
-							"value": "ReyKeys",
-							"type": "default"
-						},
-						{
-							"key": "roles",
-							"value": "1",
-							"type": "default"
+						"url": {
+							"raw": "localhost:3000/api/dev/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"register"
+							]
 						}
-					]
-				},
-				"url": {
-					"raw": "localhost:3000/api/register",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"register"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		},
+		{
+			"name": "Courier",
+			"item": [
+				{
+					"name": "Register Courier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "sakul",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "skl123",
+									"type": "default"
+								},
+								{
+									"key": "confirm_password",
+									"value": "skl123",
+									"type": "default"
+								},
+								{
+									"key": "display_name",
+									"value": "RTMX",
+									"type": "default"
+								},
+								{
+									"key": "no_telp",
+									"value": "081234567890",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/courier/register",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courier",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Login",

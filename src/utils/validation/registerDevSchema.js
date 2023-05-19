@@ -1,6 +1,6 @@
 const Joi = require('joi').extend(require('@joi/date'))
 
-const registerSchema = Joi.object({
+const registerDevSchema = Joi.object({
     username: Joi.string()
         .alphanum()
         .min(4)
@@ -10,6 +10,14 @@ const registerSchema = Joi.object({
             "any.required": "{{label}} harus terisi",
             "string.alphanum": "{{#label}} harus alphanumeric",
             "string.min": "{{#label}} harus lebih dari 4 karakter",
+        }),
+    email: Joi.string()
+        .email()
+        .required()
+        .label("Email")
+        .messages({ 
+            "any.required": "{{label}} harus terisi",
+            "string.email": "{{#label}} tidak valid"
         }),
     password: Joi.string()
         .alphanum()
@@ -27,12 +35,7 @@ const registerSchema = Joi.object({
     display_name: Joi.string()
         .required()
         .label("Display Name")
-        .messages({ "any.required": "{{label}} harus terisi" }),
-    roles: Joi.number()
-        .integer()
-        .required()
-        .label("Roles")
         .messages({ "any.required": "{{label}} harus terisi" })
 })
 
-module.exports = registerSchema;
+module.exports = registerDevSchema;
