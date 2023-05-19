@@ -4,7 +4,6 @@ const router = express.Router();
 const {
     registerCourier, 
     updateCourier,
-
     takeOrder,
     cancelShipping
 } = require("../controllers/courier")
