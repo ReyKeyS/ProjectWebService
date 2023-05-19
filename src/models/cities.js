@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      cities.belongsTo(models.provinces, {
+        foreignKey: "province_id",
+        otherKey: "province_id",
+      });
       cities.hasMany(models.shippings, {
         foreignKey: "cities_id",
         otherKey: "cities_id",
@@ -17,10 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   cities.init({
-    cities_id: {
+    city_id: {
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER
     },
     name: {
       type: DataTypes.STRING
@@ -31,13 +36,17 @@ module.exports = (sequelize, DataTypes) => {
     longitude: {
       type: DataTypes.DOUBLE
     },
-    id_province: {
+    raja_id_city: {
       type: DataTypes.INTEGER
     },
-    id_city: {
-      type: DataTypes.INTEGER
+    raja_id_province: {
+      type: Sequelize.INTEGER,
+      references: { model: 'provinces', key: 'province_id' }
     },
     postal_code: {
+      type: DataTypes.INTEGER
+    },
+    geo_city_id: {
       type: DataTypes.INTEGER
     }
   }, {

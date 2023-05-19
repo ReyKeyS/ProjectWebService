@@ -28,11 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     city_from: {
       type: DataTypes.STRING,
-      references: { model: 'cities', key: 'cities_id' }
+      references: { model: 'cities', key: 'city_id' }
     },
     city_to: {
       type: DataTypes.STRING,
-      references: { model: 'cities', key: 'cities_id' }
+      references: { model: 'cities', key: 'city_id' }
     },
     status: {
       type: DataTypes.STRING
@@ -40,7 +40,16 @@ module.exports = (sequelize, DataTypes) => {
     cost: {
       type: DataTypes.BIGINT
     },
+    weight: {
+      type: DataTypes.INTEGER
+    },
+    keterangan: {
+      type: DataTypes.STRING
+    },
     estimate_day: {
+      type: DataTypes.INTEGER
+    },
+    distance: {
       type: DataTypes.INTEGER
     },
     foto_barang: {
@@ -59,7 +68,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE
     },
     deletedAt: {
-      allowNull: false,
       type: DataTypes.DATE
     }
   }, {

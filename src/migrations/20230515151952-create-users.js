@@ -20,11 +20,20 @@ module.exports = {
       roles: {
         type: Sequelize.STRING
       },
-      profpic: {
+      api_quota: {
+        type: Sequelize.INTEGER
+      },
+      email: {
         type: Sequelize.STRING
       },
-      api_hit: {
-        type: Sequelize.INTEGER
+      saldo: {
+        type: Sequelize.BIGINT
+      },
+      no_telp: {
+        type: Sequelize.STRING
+      },
+      profpic: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

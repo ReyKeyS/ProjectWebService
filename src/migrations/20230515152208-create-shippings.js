@@ -10,11 +10,11 @@ module.exports = {
       },
       city_from: {
         type: Sequelize.STRING,
-        references: { model: 'cities', key: 'cities_id' }
+        references: { model: 'cities', key: 'city_id' }
       },
       city_to: {
         type: Sequelize.STRING,
-        references: { model: 'cities', key: 'cities_id' }
+        references: { model: 'cities', key: 'city_id' }
       },
       status: {
         type: Sequelize.STRING
@@ -22,7 +22,16 @@ module.exports = {
       cost: {
         type: Sequelize.BIGINT
       },
+      weight: {
+        type: Sequelize.INTEGER
+      },
+      keterangan: {
+        type: Sequelize.STRING
+      },
       estimate_day: {
+        type: Sequelize.INTEGER
+      },
+      distance: {
         type: Sequelize.INTEGER
       },
       foto_barang: {

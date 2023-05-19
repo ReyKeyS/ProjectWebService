@@ -3,10 +3,11 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('cities', {
-      cities_id: {
+      city_id: {
         allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       name: {
         type: Sequelize.STRING
@@ -17,13 +18,17 @@ module.exports = {
       longitude: {
         type: Sequelize.DOUBLE
       },
-      id_province: {
+      raja_id_city: {
         type: Sequelize.INTEGER
       },
-      id_city: {
-        type: Sequelize.INTEGER
+      raja_id_province: {
+        type: Sequelize.INTEGER,
+        references: { model: 'provinces', key: 'province_id' }
       },
       postal_code: {
+        type: Sequelize.INTEGER
+      },
+      geo_city_id: {
         type: Sequelize.INTEGER
       }
     });

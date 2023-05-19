@@ -34,11 +34,20 @@ module.exports = (sequelize, DataTypes) => {
     roles: {
       type: DataTypes.STRING
     },
-    profpic: {
+    api_quota: {
+      type: DataTypes.INTEGER
+    },
+    email: {
       type: DataTypes.STRING
     },
-    api_hit: {
-      type: DataTypes.INTEGER
+    saldo: {
+      type: DataTypes.BIGINT
+    },
+    no_telp: {
+      type: DataTypes.STRING
+    },
+    profpic: {
+      type: DataTypes.STRING
     },
     createdAt: {
       allowNull: false,
