@@ -10,7 +10,7 @@ const {
 
 
 router.post("/register", registerCourier)
-router.put("/update", updateCourier)
+router.put("/update/:user_id", updateCourier)
 
 router.post("/takeorder/:shipping_id", takeOrder)
 router.put("/cancel/:shipping_id", cancelShipping)

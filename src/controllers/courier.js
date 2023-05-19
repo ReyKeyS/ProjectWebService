@@ -130,6 +130,7 @@ const registerCourier = async (req, res) => {
     const uploadingFile = await upload.single("foto_ktp");
     uploadingFile(req, res, async (err) => {
         console.log("req.body", req.body);
+        console.log("req.file",req.file);
         if (err) {
             console.log(err);
             return res
@@ -177,6 +178,7 @@ const registerCourier = async (req, res) => {
             password: hashedPassword,
             display_name: display_name,
             no_telp: no_telp,
+            profpic:req.file.filename,
             roles: "cour"
         })
 
@@ -192,7 +194,34 @@ const registerCourier = async (req, res) => {
 }
 
 
-const updateCourier = async (req, res) => { }
+const updateCourier = async (req, res) => { 
+    const {user_id}=req.params
+    const {username, display_name,no_telp}=req.body
+    let ubah=await users.update({
+        username:username,
+        display_name:display_name,
+        no_telp:no_telp
+    },{
+        where:{
+            user_id:user_id
+        }
+    })
+
+    let cariUser=await users.findByPk(user_id)
+    if (!cariUser) {
+        return res.status(404).json({
+            message:"User tidak ditemukan"
+        })
+    }
+    return res.status(200).json({
+        message:"Berhasil Update", data:{
+            user_id:user_id,
+            username:username,
+            display_name:display_name,
+            no_telp:no_telp
+        }
+    })
+}
 
 
 const takeOrder = async (req, res) => { }
