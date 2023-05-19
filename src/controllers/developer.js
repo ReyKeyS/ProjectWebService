@@ -57,7 +57,8 @@ const registerDev = async (req, res) => {
         email: email,
         password: hashedPassword,
         display_name: display_name,
-        roles: "dev"
+        roles: "dev",
+        saldo: 0
     })
 
     return res.status(201).send({
@@ -70,10 +71,82 @@ const registerDev = async (req, res) => {
 }
 
 const updateDev = async (req, res) => {
-    
+    const user = req.user;
+
+    const { display_name, email } = req.body;
+
+    // Replace data
+    let newName, newEmail;
+    if (!display_name) newName = user.display_name; else newName = display_name
+    if (!email) newEmail = user.email;
+    else {
+        try {
+            let result = await schema.emailSchema.validateAsync(email, {
+                abortEarly: false,
+            });
+            newEmail = email
+        } catch (error) {
+            const processedResult = error.details.reduce((hasil, item) => {
+                const key = item.context.key || item.context.main;
+                if (key in hasil) {
+                    hasil[key].push(item.message);
+                } else {
+                    hasil[key] = [item.message];
+                }
+                return hasil;
+            }, {});
+            return res.status(400).json({ msg: "Validasi gagal", payload: processedResult });
+        }
+    }
+
+    // Update DB
+    await users.update({
+        display_name: newName,
+        email: newEmail,
+    },{ where: { user_id: user.user_id} });
+
+    return res.status(201).send({message: "Updated Successfully", data: {
+        username: user.username,
+        email: newEmail,
+        display_name: newName
+    }})
 }
 
-const topup = async (req, res) => {}
+const topup = async (req, res) => {
+    const user = req.user
+
+    const { amount } = req.body
+
+    // Validate amount
+    try {
+        let result = await schema.saldoSchema.validateAsync(amount, {
+            abortEarly: false,
+        });
+    } catch (error) {
+        const processedResult = error.details.reduce((hasil, item) => {
+            const key = item.context.key || item.context.main;
+            if (key in hasil) {
+                hasil[key].push(item.message);
+            } else {
+                hasil[key] = [item.message];
+            }
+            return hasil;
+        }, {});
+        return res.status(400).json({ msg: "Validasi gagal", payload: processedResult });
+    }
+    
+    // Top Up   
+    let newSaldo = parseInt(user.saldo) + parseInt(amount)
+    // Update DB
+    await users.update({
+        saldo: newSaldo
+    },{ where: { user_id: user.user_id} });
+
+    return res.status(201).send({message: "Updated Successfully", data: {
+        username: user.username,
+        saldo: newSaldo
+    }})
+}
 
 const subscribe = async (req, res) => {}
 

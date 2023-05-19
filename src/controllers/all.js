@@ -31,7 +31,7 @@ const loginUser = async (req, res) => {
     const accessToken = jwt.sign(
         { user },
         process.env.ACCESS_TOKEN_SECRET,
-        { expiresIn: "5m" }
+        { expiresIn: "1d" }
     )
 
     return res.status(200).send({

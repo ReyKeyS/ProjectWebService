@@ -17,10 +17,11 @@ const {
     deleteShipping,
 } = require("../controllers/developer")
 
+const middleware = require("../middleware");
 
 router.post("/register", registerDev)
-router.put("/update", updateDev)
-router.put("/topup", topup)
+router.put("/update", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], updateDev)
+router.put("/topup", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], topup)
 router.post("/subscribe", subscribe)
 
 router.get("/couriers/", getCourierQuery)
