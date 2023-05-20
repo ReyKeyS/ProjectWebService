@@ -381,7 +381,10 @@ const addShipping = async (req, res) => {
         const distance = await axios({
             method: "get",
             url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${city_origin.geo_city_id}/distance`,
-            params: {toCityId: `${city_destination.geo_city_id}`},
+            params: {
+                distanceUnit: 'KM',
+                toCityId: `${city_destination.geo_city_id}`
+            },
             headers: {
                 'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
                 'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
