@@ -377,6 +377,20 @@ const addShipping = async (req, res) => {
             url: `https://api.openweathermap.org/data/2.5/weather?lat=${city_destination.latitude}&lon=${city_destination.longitude}&appid=${process.env.OPENWEATHER_KEY}`
         })
 
+        // GeoDB Cities
+        const distance = await axios({
+            method: "get",
+            url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${city_origin.geo_city_id}/distance`,
+            params: {
+                distanceUnit: 'KM',
+                toCityId: `${city_destination.geo_city_id}`
+            },
+            headers: {
+                'X-RapidAPI-Key': process.env.RAPIDAPI_KEY,
+                'X-RapidAPI-Host': 'wft-geo-db.p.rapidapi.com'
+            }
+        })
+
         // Generate ID
         let newID = "SP"
         const currMax = await shippings.count({ where: { shipping_id: { [Op.like]: "SP%" } } })
@@ -400,7 +414,7 @@ const addShipping = async (req, res) => {
             cost: cost,
             weight: weight,
             estimate_day: est,
-            distance: 3,
+            distance: distance.data.data,
             foto_barang: `barang_${req.gmbrCount}${req.fileExt}`
         })
 

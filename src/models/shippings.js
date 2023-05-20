@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     distance: {
-      type: DataTypes.INTEGER
+      type: DataTypes.DOUBLE
     },
     foto_barang: {
       type: DataTypes.STRING
