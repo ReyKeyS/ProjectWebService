@@ -130,7 +130,7 @@ const registerCourier = async (req, res) => {
     const uploadingFile = await upload.single("foto_ktp");
     uploadingFile(req, res, async (err) => {
         console.log("req.body", req.body);
-        console.log("req.file",req.file);
+        console.log("req.file", req.file);
         if (err) {
             console.log(err);
             return res
@@ -178,7 +178,7 @@ const registerCourier = async (req, res) => {
             password: hashedPassword,
             display_name: display_name,
             no_telp: no_telp,
-            profpic:req.file.filename,
+            profpic: req.file.filename,
             roles: "cour"
         })
 
@@ -194,33 +194,69 @@ const registerCourier = async (req, res) => {
 }
 
 
-const updateCourier = async (req, res) => { 
-    const {display_name, old_password, new_password, no_telp}=req.body
-    let cariUser=await users.findByPk(req.user.user_id)
+const updateCourier = async (req, res) => {
+    let { display_name, old_password, new_password, no_telp } = req.body
+
+    try {
+        await schema.updateCourSchema.validateAsync(req.body, {
+            abortEarly: false
+        })
+    } catch (error) {
+        const processedResult = error.details.reduce((hasil, item) => {
+            const key = item.context.key || item.context.main;
+            if (key in hasil) {
+                hasil[key].push(item.message);
+            } else {
+                hasil[key] = [item.message];
+            }
+            return hasil;
+        }, {});
+        return res.status(400).json({ msg: "Validasi gagal", payload: processedResult });
+    }
+
+    let cariUser = await users.findByPk(req.user.user_id)
+
+    if (!cariUser) {
+        return res.status(200).json({ message: "User tidak ditemukan" })
+    }
+
+    //Cek password
+    const cekPassword = await bcrypt.compare(old_password, cariUser.password);
+    if (!cekPassword) return res.status(400).send({ message: "Password salah" })
 
     // Password
     let hashedPassword;
     await bcrypt.hash(new_password, 10).then((hash) => {
         hashedPassword = hash;
     });
+    //isi kalau kosong
+    if (!display_name) {
+        display_name = cariUser.display_name
+    }
+    if (!new_password) {
+        new_password = old_password
+    }
+    if (!no_telp) {
+        no_telp = cariUser.no_telp
+    }
 
-    let ubah=await users.update({
-        display_name:display_name,
-        password:hashedPassword,
-        no_telp:no_telp
-    },{
-        where:{
-            user_id:req.user.user_id
+    let ubah = await users.update({
+        display_name: display_name,
+        password: hashedPassword,
+        no_telp: no_telp
+    }, {
+        where: {
+            user_id: req.user.user_id
         }
     })
 
     console.log(ubah);
     return res.status(200).json({
-        message:"Berhasil Update", data:{
-            user_id:req.user.user_id,
-            username:req.user.username,
-            display_name:display_name,
-            no_telp:no_telp
+        message: "Berhasil Update", data: {
+            user_id: req.user.user_id,
+            username: req.user.username,
+            display_name: display_name,
+            no_telp: no_telp
         }
     })
 }
