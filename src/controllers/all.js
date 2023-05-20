@@ -1,6 +1,11 @@
 // Req
+require("dotenv").config();
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
+const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const db = require("../models/index");
 const conn = db.sequelize
@@ -42,13 +47,69 @@ const loginUser = async (req, res) => {
     })
 }
 
-const getLatest = async (req, res) => {}
+const getLatest = async (req, res) => {
+    const allShip = await shippings.findAll({
+        attributes: [
+            "shipping_id",
+        ],
+        order: [['createdAt', 'desc']], 
+    })
 
-const detailShipping = async (req, res) => {}
+    return res.status(200).send(allShip)
+}
 
-const weatherShipping = async (req, res) => {}
+const detailShipping = async (req, res) => {
+    const { shipping_id } = req.params
 
-const updateShipping = async (req, res) => {}
+    const ship = await shippings.findByPk(shipping_id)
+    if (ship == null) return res.status(404).send({message: "Ship not found"});
+
+    return res.status(200).send(ship);
+}
+
+const weatherShipping = async (req, res) => {
+    const { shipping_id } = req.params
+
+    const ship = await shippings.findByPk(shipping_id)
+    if (ship == null) return res.status(404).send({message: "Ship not found"});
+
+    // Origin
+    const city_origin = await cities.findByPk(ship.city_from)
+    if (city_origin == null) return res.status(404).send({message: "City not found"})
+
+    // Destination
+    const city_destination = await cities.findByPk(ship.city_to)
+    if (city_destination == null) return res.status(404).send({message: "City not found"})
+
+    // Weather
+    const weatherOrigin = await axios({
+        method: "get",
+        url: `https://api.openweathermap.org/data/2.5/weather?lat=${city_origin.latitude}&lon=${city_origin.longitude}&appid=${process.env.OPENWEATHER_KEY}`
+    })
+    const weatherDestination = await axios({
+        method: "get",
+        url: `https://api.openweathermap.org/data/2.5/weather?lat=${city_destination.latitude}&lon=${city_destination.longitude}&appid=${process.env.OPENWEATHER_KEY}`
+    })
+
+    return res.status(200).send({
+        weather_city_from: weatherOrigin.data,
+        weather_city_to: weatherDestination.data,
+    })
+}
+
+const updateShipping = async (req, res) => {
+    const { shipping_id } = req.params
+    const { status } = req.body
+
+    const ship = await shippings.findByPk(shipping_id)
+    if (ship == null) return res.status(404).send({message: "Ship not found"});
+
+    if (status != "Delivered") return res.status(400).send({message: "Invalid status"})
+
+    ship.update({status: status})
+
+    return res.status(200).send({message: `Shipping ${shipping_id} is being ${status}`})
+}
 
 module.exports = {
     loginUser,

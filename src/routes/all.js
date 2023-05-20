@@ -9,11 +9,12 @@ const {
     updateShipping
 } = require("../controllers/all")
 
+const middleware = require("../middleware");
 
 router.post("/login", loginUser)
-router.get("/shipping/latest", getLatest)
-router.get("/shipping/:shipping_id", detailShipping)
-router.get("/weather/:shipping_id", weatherShipping)
-router.put("/shipping/:shipping_id", updateShipping)
+router.get("/shipping/latest", middleware.verifyJWT, getLatest)
+router.get("/shipping/:shipping_id", middleware.verifyJWT, detailShipping)
+router.get("/weather/:shipping_id", middleware.verifyJWT, weatherShipping)
+router.put("/shipping/:shipping_id", middleware.verifyJWT, updateShipping)
 
 module.exports = router;
