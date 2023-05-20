@@ -195,28 +195,30 @@ const registerCourier = async (req, res) => {
 
 
 const updateCourier = async (req, res) => { 
-    const {user_id}=req.params
-    const {username, display_name,no_telp}=req.body
+    const {display_name, old_password, new_password, no_telp}=req.body
+    let cariUser=await users.findByPk(req.user.user_id)
+
+    // Password
+    let hashedPassword;
+    await bcrypt.hash(new_password, 10).then((hash) => {
+        hashedPassword = hash;
+    });
+
     let ubah=await users.update({
-        username:username,
         display_name:display_name,
+        password:hashedPassword,
         no_telp:no_telp
     },{
         where:{
-            user_id:user_id
+            user_id:req.user.user_id
         }
     })
 
-    let cariUser=await users.findByPk(user_id)
-    if (!cariUser) {
-        return res.status(404).json({
-            message:"User tidak ditemukan"
-        })
-    }
+    console.log(ubah);
     return res.status(200).json({
         message:"Berhasil Update", data:{
-            user_id:user_id,
-            username:username,
+            user_id:req.user.user_id,
+            username:req.user.username,
             display_name:display_name,
             no_telp:no_telp
         }
