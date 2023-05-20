@@ -21,7 +21,7 @@ module.exports = {
       raja_id_city: {
         type: Sequelize.INTEGER
       },
-      raja_id_province: {
+      province_id: {
         type: Sequelize.INTEGER,
         references: { model: 'provinces', key: 'province_id' }
       },

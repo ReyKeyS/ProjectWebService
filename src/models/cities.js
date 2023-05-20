@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       cities.belongsTo(models.provinces, {
-        foreignKey: "raja_id_province",
-        otherKey: "raja_id_province",
+        foreignKey: "province_id",
+        otherKey: "province_id",
       });
       cities.hasMany(models.shippings, {
         foreignKey: "cities_id",
@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
     raja_id_city: {
       type: DataTypes.INTEGER
     },
-    raja_id_province: {
+    province_id: {
       type: DataTypes.INTEGER,
       references: { model: 'provinces', key: 'province_id' }
     },
@@ -51,6 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
+    timestamps: false,
     modelName: 'cities',
   });
   return cities;

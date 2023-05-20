@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c0bd86b2-9186-479d-a552-5321093cf6d0",
+		"_postman_id": "64965ff1-9091-4f17-963c-04b1203430b0",
 		"name": "ProyekStormTrack",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -182,6 +182,152 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Show Courier Query",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleSIsInJvbGVzIjoiZGV2IiwiYXBpX3F1b3RhIjoyMCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjo1MDAwLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTE5VDEyOjQ3OjAzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTE5VDE1OjA2OjE0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1NjgyNjUsImV4cCI6MTY4NDY1NDY2NX0.XX0sTEA_jJddoJFiMQB8h6Txm8czYIGHcyamab6V9Ps",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/dev/couriers?name=r",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"couriers"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "r"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Courier Params",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleSIsInJvbGVzIjoiZGV2IiwiYXBpX3F1b3RhIjoyMCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjo1MDAwLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTE5VDEyOjQ3OjAzLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTE5VDE1OjA2OjE0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1NjgyNjUsImV4cCI6MTY4NDY1NDY2NX0.XX0sTEA_jJddoJFiMQB8h6Txm8czYIGHcyamab6V9Ps",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/dev/couriers/:user_id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"couriers",
+								":user_id"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "US002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Cities Query",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDA4OjUxOjI4LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDA4OjUxOjI4LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1NzI3MDAsImV4cCI6MTY4NDY1OTEwMH0.Ce4-b2AFzjWHBkNjzYh-UEfzhT8Q-h_zBGlnnWfdoKs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/dev/cities?name=bali",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"cities"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "bali"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show Cities Params",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDA4OjUxOjI4LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDA4OjUxOjI4LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1NzI3MDAsImV4cCI6MTY4NDY1OTEwMH0.Ce4-b2AFzjWHBkNjzYh-UEfzhT8Q-h_zBGlnnWfdoKs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/dev/cities/:city_id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"cities",
+								":city_id"
+							],
+							"variable": [
+								{
+									"key": "city_id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -240,14 +386,6 @@
 								"register"
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
 					},
 					"response": []
 				}
