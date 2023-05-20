@@ -11,12 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       shippings.belongsTo(models.users, {
-        foreignKey: "user_id",
-        otherKey: "user_id",
+        sourceKey: "user_id",
+        foreignKey: "id_kurir",
       });
       shippings.belongsTo(models.cities, {
-        foreignKey: "cities_id",
-        otherKey: "cities_id",
+        sourceKey: "city_id",
+        foreignKey: "city_from",
+      });
+      shippings.belongsTo(models.cities, {
+        sourceKey: "city_id",
+        foreignKey: "city_to",
       });
     }
   }
@@ -27,12 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     city_from: {
-      type: DataTypes.STRING,
-      references: { model: 'cities', key: 'city_id' }
+      type: DataTypes.INTEGER,
     },
     city_to: {
-      type: DataTypes.STRING,
-      references: { model: 'cities', key: 'city_id' }
+      type: DataTypes.INTEGER,
     },
     status: {
       type: DataTypes.STRING
@@ -57,7 +59,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     id_kurir: {
       type: DataTypes.STRING,
-      references: { model: 'users', key: 'user_id' }
     },
     createdAt: {
       allowNull: false,

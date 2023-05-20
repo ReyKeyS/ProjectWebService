@@ -382,7 +382,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1ODIxNjEsImV4cCI6MTY4NDY2ODU2MX0.yLlBTOjeEx3O_jwxAxfYRYrqk9R2gvkDJSn8XWzBoXM",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjIzOjQxLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjIzOjQxLjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1ODkwMjUsImV4cCI6MTY4NDY3NTQyNX0.9xiJCMgwpOCmraKN6e0zIszHpIKQ4zWqmipS3ICz0mY",
 									"type": "string"
 								}
 							]
@@ -452,7 +452,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1ODQ3MTIsImV4cCI6MTY4NDY3MTExMn0.1pKGRl0heMI8b8a3rLwcHmWQEEJejPGdUWnEo0pCUBY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjIzOjQxLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjIzOjQxLjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1ODkwMjUsImV4cCI6MTY4NDY3NTQyNX0.9xiJCMgwpOCmraKN6e0zIszHpIKQ4zWqmipS3ICz0mY",
 									"type": "string"
 								}
 							]

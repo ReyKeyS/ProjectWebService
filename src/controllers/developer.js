@@ -414,10 +414,12 @@ const deleteShipping = async (req, res) => {
     const { shipping_id } = req.params
 
     // Cek shipping
-    const ship = await shippings.findByPk(shipping_id)
+    const ship = await shippings.findByPk("SP001")
+    console.log(ship);
     if (ship == null) return res.status(404).send({message: "Shipping not found"})
 
-    // await ship.destroy()
+    await ship.update({status: "Removed"})
+    await ship.destroy()
 
     return res.status(200).send({message: `Shipping ${shipping_id} has been removed`})
 }

@@ -15,8 +15,12 @@ module.exports = (sequelize, DataTypes) => {
         otherKey: "province_id",
       });
       cities.hasMany(models.shippings, {
-        foreignKey: "cities_id",
-        otherKey: "cities_id",
+        sourceKey: "city_id",
+        foreignKey: "city_from",
+      });
+      cities.hasMany(models.shippings, {
+        sourceKey: "city_id",
+        foreignKey: "city_to",
       });
     }
   }
@@ -40,8 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     province_id: {
-      type: DataTypes.INTEGER,
-      references: { model: 'provinces', key: 'province_id' }
+      type: DataTypes.INTEGER
     },
     postal_code: {
       type: DataTypes.INTEGER
