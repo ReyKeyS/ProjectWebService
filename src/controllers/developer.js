@@ -410,7 +410,17 @@ const addShipping = async (req, res) => {
     });
 }
 
-const deleteShipping = async (req, res) => {}
+const deleteShipping = async (req, res) => {
+    const { shipping_id } = req.params
+
+    // Cek shipping
+    const ship = await shippings.findByPk(shipping_id)
+    if (ship == null) return res.status(404).send({message: "Shipping not found"})
+
+    // await ship.destroy()
+
+    return res.status(200).send({message: `Shipping ${shipping_id} has been removed`})
+}
 
 module.exports = {
     registerDev, 
