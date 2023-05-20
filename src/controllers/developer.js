@@ -4,11 +4,11 @@ const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 const db = require("../models/index");
 const conn = db.sequelize
-const { Op, QueryTypes } = require('sequelize')
+const { Sequelize, Op, QueryTypes } = require('sequelize')
 const schema = require("../utils/validation/index");
 
 // Models
-const { users, cities, shippings } = require("../models");
+const { users, cities, provinces, shippings } = require("../models");
 
 
 const registerDev = async (req, res) => {
@@ -181,13 +181,78 @@ const subscribe = async (req, res) => {
 }
 
 
-const getCourierQuery = async (req, res) => {}
+const getCourierQuery = async (req, res) => {
+    const user = await users.findByPk(req.user.user_id)
 
-const getCourierParams = async (req, res) => {}
+    const { name } = req.query
 
-const getCityQuery = async (req, res) => {}
+    // Query
+    const result = await users.findAll({
+        attributes: [
+            "user_id",
+            [Sequelize.literal("display_name"), "Nama"]
+        ],
+        where: { roles: "cour", display_name: {[Op.like]: `%${name}%`}}
+    })
 
-const getCityParams = async (req, res) => {}
+    return res.status(200).send(result)
+}
+
+const getCourierParams = async (req, res) => {
+    const user = await users.findByPk(req.user.user_id)
+
+    const { user_id } = req.params
+
+    const result = await users.findByPk(user_id)
+    if (result == null) return res.status(404).send({message: "User not found"})
+    if (result.roles != "cour") return res.status(404).send({message: "Bukan Courier"})
+
+    return res.status(200).send({
+        user_id: result.user_id,
+        Nama: result.display_name,
+        No_Telp: result.no_telp
+    })
+}
+
+const getCityQuery = async (req, res) => {
+    const user = await users.findByPk(req.user.user_id)
+
+    const { name } = req.query
+
+    // Query
+    const result = await cities.findAll({
+        attributes: [
+            "city_id",
+            "name",
+            [Sequelize.literal("province.name"), "Province"],
+        ],
+        include: [
+            { model: provinces, attributes: []}
+        ],
+        where: { name: {[Op.like]: `%${name}%`}}
+    })
+
+    return res.status(200).send(result)
+}
+
+const getCityParams = async (req, res) => {
+    const user = await users.findByPk(req.user.user_id)
+
+    const { city_id } = req.params
+
+    // Query
+    const city = await cities.findByPk(city_id)
+    console.log(city);
+    if (city == null) return res.status(404).send({message: "City not found"})
+
+    return res.status(200).send({
+        city_id: city_id,
+        name: city.name,
+        latitude: city.latitude,
+        longitude: city.longitude,
+        postal_code: city.postal_code
+    })
+}
 
 
 const getEstimate = async (req, res) => {}

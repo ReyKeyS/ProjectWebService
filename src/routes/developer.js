@@ -24,13 +24,13 @@ router.put("/update", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], 
 router.put("/topup", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], topup)
 router.post("/subscribe", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], subscribe)
 
-router.get("/couriers/", getCourierQuery)
-router.get("/couriers/:user_id", getCourierParams)
-router.get("/cities/", getCityQuery)
-router.get("/cities/:cities_id", getCityParams)
+router.get("/couriers/", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], getCourierQuery)
+router.get("/couriers/:user_id", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], getCourierParams)
+router.get("/cities/", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], getCityQuery)
+router.get("/cities/:city_id", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], getCityParams)
 
-router.get("/shipping/estimate", getEstimate)
-router.post("/shipping", addShipping)
-router.delete("/shipping/:shipping_id", deleteShipping)
+router.get("/shipping/estimate", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], getEstimate)
+router.post("/shipping", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], addShipping)
+router.delete("/shipping/:shipping_id", [middleware.verifyJWT, middleware.checkRoles.cekRoleDev], deleteShipping)
 
 module.exports = router;

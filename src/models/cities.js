@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       cities.belongsTo(models.provinces, {
-        foreignKey: "province_id",
-        otherKey: "province_id",
+        foreignKey: "raja_id_province",
+        otherKey: "raja_id_province",
       });
       cities.hasMany(models.shippings, {
         foreignKey: "cities_id",
@@ -51,8 +51,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    timestamps: true,
-    paranoid: true,
     modelName: 'cities',
   });
   return cities;
