@@ -328,6 +328,158 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Estimate Shipping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1NzY2MDgsImV4cCI6MTY4NDY2MzAwOH0.uGzxeGnh5PpoDlFz1Yqbu0GdlquR3nzLUln01i0bT0M",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/dev/shipping/estimate?city_from=10&city_to=84&weight=1000",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"shipping",
+								"estimate"
+							],
+							"query": [
+								{
+									"key": "city_from",
+									"value": "10"
+								},
+								{
+									"key": "city_to",
+									"value": "84"
+								},
+								{
+									"key": "weight",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Shipping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1ODIxNjEsImV4cCI6MTY4NDY2ODU2MX0.yLlBTOjeEx3O_jwxAxfYRYrqk9R2gvkDJSn8XWzBoXM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "city_from",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "city_to",
+									"value": "84",
+									"type": "text"
+								},
+								{
+									"key": "weight",
+									"value": "1000",
+									"type": "text"
+								},
+								{
+									"key": "courier",
+									"value": "jne",
+									"type": "text"
+								},
+								{
+									"key": "service",
+									"value": "reg",
+									"type": "text"
+								},
+								{
+									"key": "notes",
+									"value": "fragile ngab",
+									"type": "text"
+								},
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "/D:/WebService/Proyek/fotofoto/barang.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/dev/shipping",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"shipping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shipping",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleXMiLCJyb2xlcyI6ImRldiIsImFwaV9xdW90YSI6MTAsImVtYWlsIjoicnlrQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDA5OjU2OjQ0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1ODQ3MTIsImV4cCI6MTY4NDY3MTExMn0.1pKGRl0heMI8b8a3rLwcHmWQEEJejPGdUWnEo0pCUBY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/dev/shipping/:shipping_id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"dev",
+								"shipping",
+								":shipping_id"
+							],
+							"variable": [
+								{
+									"key": "shipping_id",
+									"value": "SP001"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -392,7 +544,7 @@
 			]
 		},
 		{
-			"name": "Login",
+			"name": "Login Dev",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -407,6 +559,40 @@
 						{
 							"key": "password",
 							"value": "ryk123",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login Cour",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "sakul",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "skl123",
 							"type": "default"
 						}
 					]
