@@ -610,6 +610,154 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get Shipping Latest",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleSIsInJvbGVzIjoiZGV2IiwiYXBpX3F1b3RhIjoyMCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjA0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjI0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1OTExNjMsImV4cCI6MTY4NDY3NzU2M30.B6KPHrj1sC_6lDY0ICon8d1IT3JqBbmY5daDUJoQE5I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/shipping/latest",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"shipping",
+						"latest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Detail Shipping",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleSIsInJvbGVzIjoiZGV2IiwiYXBpX3F1b3RhIjoyMCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjA0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjI0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1OTExNjMsImV4cCI6MTY4NDY3NzU2M30.B6KPHrj1sC_6lDY0ICon8d1IT3JqBbmY5daDUJoQE5I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/shipping/:shipping_id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"shipping",
+						":shipping_id"
+					],
+					"variable": [
+						{
+							"key": "shipping_id",
+							"value": "SP001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Shipping Weather Conditions",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleSIsInJvbGVzIjoiZGV2IiwiYXBpX3F1b3RhIjoyMCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjA0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjI0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1OTExNjMsImV4cCI6MTY4NDY3NzU2M30.B6KPHrj1sC_6lDY0ICon8d1IT3JqBbmY5daDUJoQE5I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/weather/:shipping_id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"weather",
+						":shipping_id"
+					],
+					"variable": [
+						{
+							"key": "shipping_id",
+							"value": "SP001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Status Shipping",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoicnlrcyIsImRpc3BsYXlfbmFtZSI6IlJleUtleSIsInJvbGVzIjoiZGV2IiwiYXBpX3F1b3RhIjoyMCwiZW1haWwiOiJyeWtzQGdtYWlsLmNvbSIsInNhbGRvIjowLCJub190ZWxwIjpudWxsLCJwcm9mcGljIjpudWxsLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjA0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTIwVDEzOjUxOjI0LjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODQ1OTExNjMsImV4cCI6MTY4NDY3NzU2M30.B6KPHrj1sC_6lDY0ICon8d1IT3JqBbmY5daDUJoQE5I",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "status",
+							"value": "Delivered",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3000/api/shipping/:shipping_id",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"shipping",
+						":shipping_id"
+					],
+					"variable": [
+						{
+							"key": "shipping_id",
+							"value": "SP002"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

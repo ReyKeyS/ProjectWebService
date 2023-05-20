@@ -111,10 +111,23 @@ const updateShipping = async (req, res) => {
     return res.status(200).send({message: `Shipping ${shipping_id} is being ${status}`})
 }
 
+const getPict = async (req, res) => {
+    const { file } = req.query
+
+    let lokasinya = 'uploads/';
+    if (file.includes("barang")) lokasinya += "Bukti_Shipping/";
+    else if (file.includes("profpic")) lokasinya += "profpic/";
+
+    lokasinya += file
+
+    return res.status(200).sendFile(lokasinya, { root: "." });
+}
+
 module.exports = {
     loginUser,
     getLatest,
     detailShipping,
     weatherShipping,
-    updateShipping
+    updateShipping,
+    getPict
 }
