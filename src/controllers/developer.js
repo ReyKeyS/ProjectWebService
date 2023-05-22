@@ -147,7 +147,7 @@ const topup = async (req, res) => {
     // Update DB
     await user.update({ saldo: newSaldo });
 
-    return res.status(201).send({message: "Updated Successfully", data: {
+    return res.status(201).send({message: "Berhasil Diperbaharui", data: {
         username: user.username,
         saldo: newSaldo
     }})
@@ -209,7 +209,7 @@ const getCourierParams = async (req, res) => {
     const { user_id } = req.params
 
     const result = await users.findByPk(user_id)
-    if (result == null) return res.status(404).send({message: "User not found"})
+    if (result == null) return res.status(404).send({message: "User tidak ditemukan"})
     if (result.roles != "cour") return res.status(404).send({message: "Bukan Courier"})
 
     return res.status(200).send({
@@ -260,7 +260,7 @@ const getCityParams = async (req, res) => {
         ],
         where: { city_id: city_id }
     })
-    if (city == null) return res.status(404).send({message: "City not found"})
+    if (city == null) return res.status(404).send({message: "Kota tidak ditemukan"})
 
     return res.status(200).send(city)
 }
@@ -273,11 +273,11 @@ const getEstimate = async (req, res) => {
 
     // Origin
     const city_origin = await cities.findByPk(city_from)
-    if (city_origin == null) return res.status(404).send({message: "City not found"})
+    if (city_origin == null) return res.status(404).send({message: "Kota tidak ditemukan"})
 
     // Destination
     const city_destination = await cities.findByPk(city_to)
-    if (city_destination == null) return res.status(404).send({message: "City not found"})
+    if (city_destination == null) return res.status(404).send({message: "Kota tidak ditemukan"})
 
     const opts = { headers: { key: process.env.RAJAONGKIR_KEY }}
     // JNE
@@ -344,11 +344,11 @@ const addShipping = async (req, res) => {
         
         // Origin
         const city_origin = await cities.findByPk(city_from)
-        if (city_origin == null) return res.status(400).send({message: "City not found"})
+        if (city_origin == null) return res.status(400).send({message: "Kota tidak ditemukan"})
 
         // Destination
         const city_destination = await cities.findByPk(city_to)
-        if (city_destination == null) return res.status(400).send({message: "City not found"})
+        if (city_destination == null) return res.status(400).send({message: "Kota tidak ditemukan"})
 
         // Cek courier
         if (courier.toLowerCase() == "jne"){
