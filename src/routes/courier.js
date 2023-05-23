@@ -13,7 +13,7 @@ const middleware = require("../middleware");
 router.post("/register", registerCourier)
 router.put("/update",[middleware.verifyJWT, middleware.checkRoles.cekRoleCour], updateCourier)
 
-router.post("/takeorder/:shipping_id", takeOrder)
-router.put("/cancel/:shipping_id", cancelShipping)
+router.post("/takeorder/:shipping_id",[middleware.verifyJWT, middleware.checkRoles.cekRoleCour], takeOrder)
+router.put("/cancel/:shipping_id",[middleware.verifyJWT, middleware.checkRoles.cekRoleCour], cancelShipping)
 
 module.exports = router;

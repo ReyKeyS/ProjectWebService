@@ -262,7 +262,10 @@ const updateCourier = async (req, res) => {
 }
 
 
-const takeOrder = async (req, res) => { }
+const takeOrder = async (req, res) => {
+    const {shipping_id}=req.params
+    let cariKurir=await users.findAll()
+}
 
 const cancelShipping = async (req, res) => { }
 

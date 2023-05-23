@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "64965ff1-9091-4f17-963c-04b1203430b0",
+		"_postman_id": "ee7df68f-ce97-417b-94cd-cb3646e699be",
 		"name": "ProyekStormTrack",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -536,6 +536,102 @@
 								"api",
 								"courier",
 								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Courier",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoic2FrdWwiLCJkaXNwbGF5X25hbWUiOiJSVE1YIiwicm9sZXMiOiJjb3VyIiwiYXBpX3F1b3RhIjpudWxsLCJlbWFpbCI6bnVsbCwic2FsZG8iOm51bGwsIm5vX3RlbHAiOiIwODEyMzQ1Njc4OTAiLCJwcm9mcGljIjoia3RwX3Nha3VsLmpwZyIsImNyZWF0ZWRBdCI6IjIwMjMtMDUtMjNUMTI6MTk6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDUtMjNUMTI6MTk6MTIuMDAwWiIsImRlbGV0ZWRBdCI6bnVsbH0sImlhdCI6MTY4NDg0NDczOSwiZXhwIjoxNjg0OTMxMTM5fQ.rdFHNcWvwCF6ljG7CsZ_DVD1GIliDt34qUP9M_Aqcvw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "display_name",
+									"value": "RTMS",
+									"type": "default"
+								},
+								{
+									"key": "old_password",
+									"value": "lukas123",
+									"type": "default"
+								},
+								{
+									"key": "new_password",
+									"value": "lukas123",
+									"type": "default"
+								},
+								{
+									"key": "no_telp",
+									"value": "0123456789",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/courier/update",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courier",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Take Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoic2FrdWwiLCJkaXNwbGF5X25hbWUiOiJSVE1YIiwicm9sZXMiOiJjb3VyIiwiYXBpX3F1b3RhIjpudWxsLCJlbWFpbCI6bnVsbCwic2FsZG8iOm51bGwsIm5vX3RlbHAiOiIwODEyMzQ1Njc4OTAiLCJwcm9mcGljIjoia3RwX3Nha3VsLmpwZyIsImNyZWF0ZWRBdCI6IjIwMjMtMDUtMjNUMTI6MTk6MTIuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjMtMDUtMjNUMTI6MTk6MTIuMDAwWiIsImRlbGV0ZWRBdCI6bnVsbH0sImlhdCI6MTY4NDg0NDczOSwiZXhwIjoxNjg0OTMxMTM5fQ.rdFHNcWvwCF6ljG7CsZ_DVD1GIliDt34qUP9M_Aqcvw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:3000/api/courier/takeorder/:shipping_id",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courier",
+								"takeorder",
+								":shipping_id"
+							],
+							"variable": [
+								{
+									"key": "shipping_id",
+									"value": ""
+								}
 							]
 						}
 					},
