@@ -111,7 +111,7 @@ const updateDev = async (req, res) => {
         email: newEmail,
     });
 
-    return res.status(201).send({message: "Updated Successfully", data: {
+    return res.status(201).send({message: "Berhasil terupdate", data: {
         username: user.username,
         email: newEmail,
         display_name: newName
@@ -168,7 +168,7 @@ const subscribe = async (req, res) => {
         plus = 25; price = 20000
     }else if (subscription_package.toLowerCase() == "gold"){
         plus = 55; price = 30000
-    }else return res.status(400).send({message: "Subscription Package must be Bronze, Silver or Gold"})
+    }else return res.status(400).send({message: "Paket Langganan harus Bronze, Silver atau Gold"})
     let newQuota = parseInt(user.api_quota) + parseInt(plus)
 
     // Cek saldo
@@ -352,12 +352,12 @@ const addShipping = async (req, res) => {
 
         // Cek courier
         if (courier.toLowerCase() == "jne"){
-            if (service.toLowerCase() != "oke" && service.toLowerCase() != "reg" && service.toLowerCase() != "yes") return res.status(400).send({message: "Invalid Service"})
+            if (service.toLowerCase() != "oke" && service.toLowerCase() != "reg" && service.toLowerCase() != "yes") return res.status(400).send({message: "Layanan Tidak Valid"})
         }else if (courier.toLowerCase() == "pos"){
-            if (service.toLowerCase() != "pos reguler" && service.toLowerCase() != "pos nextday") return res.status(400).send({message: "Invalid Service"})
+            if (service.toLowerCase() != "pos reguler" && service.toLowerCase() != "pos nextday") return res.status(400).send({message: "Layanan Tidak Valid"})
         }else if (courier.toLowerCase() == "tiki"){
-            if (service.toLowerCase() != "eco" && service.toLowerCase() != "reg" && service.toLowerCase() != "ons") return res.status(400).send({message: "Invalid Service"})
-        }else return res.status(400).send({message: "Invalid Courier"})
+            if (service.toLowerCase() != "eco" && service.toLowerCase() != "reg" && service.toLowerCase() != "ons") return res.status(400).send({message: "Layanan Tidak Valid"})
+        }else return res.status(400).send({message: "Kurir Tidak Valid"})
 
         // Raja Ongkir
         const opts = { headers: { key: process.env.RAJAONGKIR_KEY }}
@@ -430,12 +430,12 @@ const deleteShipping = async (req, res) => {
     // Cek shipping
     const ship = await shippings.findByPk("SP001")
     console.log(ship);
-    if (ship == null) return res.status(404).send({message: "Shipping not found"})
+    if (ship == null) return res.status(404).send({message: "Shipping tidak ditemukan"})
 
     await ship.update({status: "Removed"})
     await ship.destroy()
 
-    return res.status(200).send({message: `Shipping ${shipping_id} has been removed`})
+    return res.status(200).send({message: `Shipping ${shipping_id} telah dihapus`})
 }
 
 module.exports = {
