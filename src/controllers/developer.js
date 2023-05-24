@@ -147,7 +147,7 @@ const topup = async (req, res) => {
     // Update DB
     await user.update({ saldo: newSaldo });
 
-    return res.status(201).send({message: "Berhasil Diperbaharui", data: {
+    return res.status(201).send({message: "Berhasil Topup", data: {
         username: user.username,
         saldo: newSaldo
     }})
