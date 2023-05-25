@@ -192,13 +192,28 @@ const getCourierQuery = async (req, res) => {
     const { name } = req.query
 
     // Query
-    const result = await users.findAll({
-        attributes: [
-            "user_id",
-            [Sequelize.literal("display_name"), "Nama"]
-        ],
-        where: { roles: "cour", display_name: {[Op.like]: `%${name}%`}}
-    })
+
+    let result;
+
+    if(!name){
+        result = await users.findAll({
+            attributes: [
+                "user_id",
+                [Sequelize.literal("display_name"), "Nama"]
+            ],
+            where: { roles: "cour"}
+        })
+    }else{
+        result = await users.findAll({
+            attributes: [
+                "user_id",
+                [Sequelize.literal("display_name"), "Nama"]
+            ],
+            where: { roles: "cour", display_name: {[Op.like]: `%${name}%`}}
+        })
+    }
+
+    
 
     return res.status(200).send(result)
 }
@@ -215,7 +230,8 @@ const getCourierParams = async (req, res) => {
     return res.status(200).send({
         user_id: result.user_id,
         Nama: result.display_name,
-        No_Telp: result.no_telp
+        No_Telp: result.no_telp,
+        ProfPic: `localhost:3000/api/getPict?file=${result.profpic}`
     })
 }
 
@@ -225,17 +241,35 @@ const getCityQuery = async (req, res) => {
     const { name } = req.query
 
     // Query
-    const result = await cities.findAll({
-        attributes: [
-            "city_id",
-            "name",
-            [Sequelize.literal("province.name"), "Province"],
-        ],
-        include: [
-            { model: provinces, attributes: []}
-        ],
-        where: { name: {[Op.like]: `%${name}%`}}
-    })
+    let result;
+
+    if(!name){
+        result = await cities.findAll({
+            attributes: [
+                "city_id",
+                "name",
+                [Sequelize.literal("province.name"), "Province"],
+            ],
+            include: [
+                { model: provinces, attributes: []}
+            ],
+            
+        })
+    }else{
+        result = await cities.findAll({
+            attributes: [
+                "city_id",
+                "name",
+                [Sequelize.literal("province.name"), "Province"],
+            ],
+            include: [
+                { model: provinces, attributes: []}
+            ],
+            where: { name: {[Op.like]: `%${name}%`}}
+        })
+    }
+
+    
 
     return res.status(200).send(result)
 }
@@ -410,12 +444,12 @@ const addShipping = async (req, res) => {
             shipping_id: newID,
             city_from: city_from,
             city_to: city_to,
-            status: "Pending",
+            status: "1",
             cost: cost,
             weight: weight,
             estimate_day: est,
             distance: distance.data.data,
-            foto_barang: `barang_${req.gmbrCount}${req.fileExt}`
+            foto_barang: req.namaFile
         })
 
         return res.status(200).send({
@@ -432,7 +466,7 @@ const deleteShipping = async (req, res) => {
     console.log(ship);
     if (ship == null) return res.status(404).send({message: "Shipping tidak ditemukan"})
 
-    await ship.update({status: "Removed"})
+    await ship.update({status: "0"})
     await ship.destroy()
 
     return res.status(200).send({message: `Shipping ${shipping_id} telah dihapus`})
@@ -471,7 +505,9 @@ const storage = multer.diskStorage({
         const fileExtension = path.extname(file.originalname).toLowerCase();
 
         if (file.fieldname == "picture") {
-            callback(null, `barang_${req.gmbrCount}${fileExtension}`);
+            let namaFile = `barang_${req.gmbrCount}${fileExtension}`;
+            req.namaFile = namaFile
+            callback(null, namaFile);
         } else {
             callback(null, false);
         }

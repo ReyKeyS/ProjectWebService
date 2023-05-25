@@ -16,7 +16,7 @@ const { users, cities, shippings } = require("../models");
 // Function multer
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        const folderName = `uploads/KTP_Kurir`;
+        const folderName = `uploads/ProfPic_Kurir`;
 
         if (!fs.existsSync(folderName)) {
             fs.mkdirSync(folderName, { recursive: true });
@@ -27,9 +27,11 @@ const storage = multer.diskStorage({
     filename: (req, file, callback) => {
         console.log(file);
         const fileExtension = path.extname(file.originalname).toLowerCase();
-
-        if (file.fieldname == "foto_ktp") {
-            callback(null, `ktp_${req.body.username}${fileExtension}`);
+        
+        if (file.fieldname == "profpic") {
+            let namaFile = `profpic_${req.body.username}${fileExtension}`;
+            req.namaFile = namaFile
+            callback(null, namaFile);
         } else {
             callback(null, false);
         }
@@ -127,7 +129,7 @@ const upload = multer({
 
 const registerCourier = async (req, res) => {
     // Upload KTP
-    const uploadingFile = await upload.single("foto_ktp");
+    const uploadingFile = await upload.single("profpic");
     uploadingFile(req, res, async (err) => {
         console.log("req.body", req.body);
         console.log("req.file", req.file);
@@ -138,7 +140,7 @@ const registerCourier = async (req, res) => {
                 .send((err.message || err.code) + " pada field " + err.field);
         }
         console.log(req.body);
-        const { username, password, confirm_password, display_name, no_telp, foto_ktp } = req.body
+        const { username, password, confirm_password, display_name, no_telp, profpic } = req.body
         // Validation
         try {
             let result = await schema.registerCourSchema.validateAsync(req.body, {
@@ -178,7 +180,7 @@ const registerCourier = async (req, res) => {
             password: hashedPassword,
             display_name: display_name,
             no_telp: no_telp,
-            profpic: req.file.filename,
+            profpic: req.namaFile,
             roles: "cour"
         })
 

@@ -127,10 +127,10 @@ const getPict = async (req, res) => {
 
     let lokasinya = 'uploads/';
     if (file.includes("barang")) lokasinya += "Bukti_Shipping/";
-    else if (file.includes("profpic")) lokasinya += "profpic/";
+    else if (file.includes("profpic")) lokasinya += "ProfPic_Kurir/";
 
     lokasinya += file
-
+    console.log(lokasinya)
     return res.status(200).sendFile(lokasinya, { root: "." });
 }
 
