@@ -49,6 +49,9 @@ module.exports = (sequelize, DataTypes) => {
     profpic: {
       type: DataTypes.STRING
     },
+    status:{
+      type: DataTypes.BOOLEAN
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE

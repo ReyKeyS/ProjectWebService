@@ -39,7 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING
     },
-    cost: {
+    cost_min: {
+      type: DataTypes.BIGINT
+    },
+    cost_max: {
       type: DataTypes.BIGINT
     },
     weight: {
@@ -48,7 +51,10 @@ module.exports = (sequelize, DataTypes) => {
     keterangan: {
       type: DataTypes.STRING
     },
-    estimate_day: {
+    estimate_day_min: {
+      type: DataTypes.INTEGER
+    },
+    estimate_day_max: {
       type: DataTypes.INTEGER
     },
     distance: {

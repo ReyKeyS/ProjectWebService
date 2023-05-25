@@ -181,6 +181,7 @@ const registerCourier = async (req, res) => {
             display_name: display_name,
             no_telp: no_telp,
             profpic: req.namaFile,
+            status:false,
             roles: "cour"
         })
 
@@ -263,17 +264,98 @@ const updateCourier = async (req, res) => {
     })
 }
 
+const getUnorderedShipping = async(req,res) => {
+    // return res.status(200).json({message:req.user.user_id})
+    const allShip = await shippings.findAll({
+        where: {
+            id_kurir:null
+        },
+        attributes: [
+            "shipping_id",
+        ],
+        order: [['createdAt']], 
+    })
+
+    return res.status(200).send(allShip)
+}
 
 const takeOrder = async (req, res) => {
     const {shipping_id}=req.params
-    let cariKurir=await users.findAll()
+    let cekKurirTersedia=await users.findByPk(req.user.user_id)
+    if(cekKurirTersedia.status === true) {
+        return res.status(400).json({message:`Kurir ${req.user.display_name} sedang mengantarkan barang`})
+    }
+    let ambilOrder=await shippings.findOne({
+        where: {
+            shipping_id:shipping_id
+        }
+    })
+    console.log(ambilOrder);
+    // if(ambilOrder.status == "0") {
+    //     return res.status(404).json({message:`Barang ${shipping_id} tidak ditemukan`})
+    // }
+    if(ambilOrder.status=="2"){
+        return res.status(400).json({message:`Barang ${shipping_id} dalam proses pengiriman`})
+    }
+    else if(ambilOrder.status=="3"){
+        return res.status(400).json({message:`Barang ${shipping_id} sudah Tiba di Tujuan`})
+    }
+    let kirimShiping=await shippings.update({
+        status:"2",
+        id_kurir:req.user.user_id,
+    },{
+        where: {
+            shipping_id:shipping_id
+        }
+    })
+    let kirimKurir=await users.update({
+        status:1
+    },{
+        where:{
+            user_id:req.user.user_id
+        }
+    })
+    return res.status(200).json({message:`Kurir ${req.user.display_name} berhasil mengambil order barang dengan kode ${shipping_id}`})
 }
 
-const cancelShipping = async (req, res) => { }
+const cancelShipping = async (req, res) => { 
+    let idShipping=await shippings.findOne({
+        where: {
+            status:"2",
+            id_kurir:req.user.user_id
+        },
+        attributes: ["shipping_id"]
+    })
+    if (!idShipping){
+        return res.status(404).json({message:`Kurir tidak sedang mengatarkan barang`})
+    }
+    let cancelShipping=await shippings.update({
+        status:"1",
+        id_kurir:null,
+    },{
+        where: {
+            status:"2",
+            id_kurir:req.user.user_id
+        }
+    })
+    if (!cancelShipping){
+        return res.status(400).json({message:"Gagal Cancel"})
+    }
+    let cancelKurir=await users.update({
+        status:"0",
+    },{
+        where: {
+            user_id:req.user.user_id
+        }
+    })
+    console.log(idShipping.shipping_id);
+    return res.status(200).json({message:`Berhasil cancel pengiriman barang ${idShipping.shipping_id}`})
+}
 
 module.exports = {
     registerCourier,
     updateCourier,
+    getUnorderedShipping,
     takeOrder,
     cancelShipping
 }

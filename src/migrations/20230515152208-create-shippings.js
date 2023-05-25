@@ -19,7 +19,10 @@ module.exports = {
       status: {
         type: Sequelize.STRING
       },
-      cost: {
+      cost_min: {
+        type: Sequelize.BIGINT
+      },
+      cost_max: {
         type: Sequelize.BIGINT
       },
       weight: {
@@ -28,7 +31,10 @@ module.exports = {
       keterangan: {
         type: Sequelize.STRING
       },
-      estimate_day: {
+      estimate_day_min: {
+        type: Sequelize.INTEGER
+      },
+      estimate_day_max: {
         type: Sequelize.INTEGER
       },
       distance: {

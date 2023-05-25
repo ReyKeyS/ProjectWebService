@@ -443,14 +443,30 @@ const addShipping = async (req, res) => {
             }
         }
 
+        let estpisaht;
+        let estMin, estMax;
+        if(est.length >1){
+            estpisaht = est.split('-')
+            let hasilest = parseInt(estpisaht[1]);
+            hasilest++;
+
+            estMin = parseInt(estpisaht[0])
+            estMax = hasilest
+        }else{
+            estMin = parseInt(est)
+            estMax = parseInt(est)++;
+        }
+
         await shippings.create({
             shipping_id: newID,
             city_from: city_from,
             city_to: city_to,
             status: "1",
-            cost: cost,
+            cost_min: cost,
+            cost_max: cost*2,
             weight: weight,
-            estimate_day: est,
+            estimate_day_min: estMin,
+            estimate_day_max: estMax,
             distance: distance.data.data,
             foto_barang: req.namaFile
         })
@@ -462,9 +478,11 @@ const addShipping = async (req, res) => {
                 city_from: resultOngkos.data.rajaongkir.origin_details.city_name,
                 city_to: resultOngkos.data.rajaongkir.destination_details.city_name,
                 status: "Siap Dikirim",
-                cost: cost,
+                cost_min: cost,
+                cost_max: cost*2,
                 weight: weight,
-                estimate_day: est,
+                estimate_day_min: estMin,
+                estimate_day_max: estMax,
             }
            
         })

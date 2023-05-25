@@ -52,7 +52,7 @@ const getLatest = async (req, res) => {
         attributes: [
             "shipping_id",
         ],
-        order: [['createdAt', 'desc']], 
+        order: [['createdAt', 'desc']],
     })
 
     return res.status(200).send(allShip)
@@ -62,7 +62,7 @@ const detailShipping = async (req, res) => {
     const { shipping_id } = req.params
 
     const ship = await shippings.findByPk(shipping_id)
-    if (ship == null) return res.status(404).send({message: "Pengiriman tidak ditemukan"});
+    if (ship == null) return res.status(404).send({ message: "Pengiriman tidak ditemukan" });
 
     return res.status(200).send(ship);
 }
@@ -71,15 +71,15 @@ const weatherShipping = async (req, res) => {
     const { shipping_id } = req.params
 
     const ship = await shippings.findByPk(shipping_id)
-    if (ship == null) return res.status(404).send({message: "Pengiriman tidak ditemukan"});
+    if (ship == null) return res.status(404).send({ message: "Pengiriman tidak ditemukan" });
 
     // Origin
     const city_origin = await cities.findByPk(ship.city_from)
-    if (city_origin == null) return res.status(404).send({message: "Kota tidak ditemukan"})
+    if (city_origin == null) return res.status(404).send({ message: "Kota tidak ditemukan" })
 
     // Destination
     const city_destination = await cities.findByPk(ship.city_to)
-    if (city_destination == null) return res.status(404).send({message: "Kota tidak ditemukan"})
+    if (city_destination == null) return res.status(404).send({ message: "Kota tidak ditemukan" })
 
     // Weather
     const weatherOrigin = await axios({
@@ -102,24 +102,34 @@ const updateShipping = async (req, res) => {
     const { status } = req.body
 
     const ship = await shippings.findByPk(shipping_id)
-    if (ship == null) return res.status(404).send({message: "Pengiriman tidak ditemukan"});
+    if (ship == null) return res.status(404).send({ message: "Pengiriman tidak ditemukan" });
 
-   // if (status != "Siap Dikirim" && status !="Dalam Pengiriman" && status  != "Tiba di Tujuan") return res.status(400).send({message: "status tidak valid"})
-    if (status != "1" && status !="2" && status  != "3") return res.status(400).send({message: "status tidak valid"})
+    // if (status != "Siap Dikirim" && status !="Dalam Pengiriman" && status  != "Tiba di Tujuan") return res.status(400).send({message: "status tidak valid"})
+    if (status != "1" && status != "3") return res.status(400).send({ message: "status tidak valid" })
 
-    ship.update({status: status})
+    ship.update({ status: status })
 
-    if(status != "1"){
-        return res.status(200).send({message: `Shipping ${shipping_id} sedang Siap Dikirim`})
+    if (status == "1") {
+        let shipKurir = await users.update({
+            status: "0"
+        }, {
+            where:{
+                user_id:ship.id_kurir
+            }
+        }
+        )
+        ship.update({ id_kurir: null })
+        return res.status(200).send({ message: `Shipping ${shipping_id} sedang Siap Dikirim` })
     }
-    if(status != "2"){
-        return res.status(200).send({message: `Shipping ${shipping_id} sedang Dalam Pengiriman`})
-    }
-    if(status != "3"){
-        return res.status(200).send({message: `Shipping ${shipping_id} sedang Tiba di Tujuan`})
+    // if(status == "2"){
+    //     return res.status(200).send({message: `Shipping ${shipping_id} sedang Dalam Pengiriman`})
+    // }
+    if (status == "3") {
+        console.log(ship)
+        return res.status(200).send({ message: `Shipping ${shipping_id} sudah Tiba di Tujuan` })
     }
 
-    
+
 }
 
 const getPict = async (req, res) => {
