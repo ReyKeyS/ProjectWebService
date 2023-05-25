@@ -345,19 +345,22 @@ const getEstimate = async (req, res) => {
         url: `https://api.openweathermap.org/data/2.5/weather?lat=${city_destination.latitude}&lon=${city_destination.longitude}&appid=${process.env.OPENWEATHER_KEY}`
     })
 
+    
+
     return res.status(200).json({
-        estimate: { 
-            city_origin: resultJNE.data.rajaongkir.origin_details.city_name,
-            city_destination: resultJNE.data.rajaongkir.destination_details.city_name,
-            weight: resultJNE.data.rajaongkir.query.weight + " gram",
-        },
-        weather_city_origin: weatherOrigin.data,
-        weather_city_destination: weatherDestination.data,
+        city_origin: resultJNE.data.rajaongkir.origin_details.city_name,
+        city_destination: resultJNE.data.rajaongkir.destination_details.city_name,
+        weather_city_origin: weatherOrigin.data.weather[0].main,
+        weather_city_destination: weatherDestination.data.weather[0].main,
+        weight: resultJNE.data.rajaongkir.query.weight + " gram",
+        disclaimer: "Segala perhitungan dibawah tidak akurat jika kondisi cuaca berubah",
         courier: {
             JNE: resultJNE.data.rajaongkir.results[0],
             POS: resultPOS.data.rajaongkir.results[0],
             TIKI: resultTIKI.data.rajaongkir.results[0],
         }   
+
+
     })
 }
 
@@ -453,7 +456,17 @@ const addShipping = async (req, res) => {
         })
 
         return res.status(200).send({
-            message: "Berhasil menambah Shipping"
+            message: "Berhasil menambah Shipping",
+            data:{
+                shipping_id: newID,
+                city_from: resultOngkos.data.rajaongkir.origin_details.city_name,
+                city_to: resultOngkos.data.rajaongkir.destination_details.city_name,
+                status: "Siap Dikirim",
+                cost: cost,
+                weight: weight,
+                estimate_day: est,
+            }
+           
         })
     });
 }
