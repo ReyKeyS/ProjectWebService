@@ -413,6 +413,10 @@ const addShipping = async (req, res) => {
             method: "get",
             url: `https://api.openweathermap.org/data/2.5/weather?lat=${city_destination.latitude}&lon=${city_destination.longitude}&appid=${process.env.OPENWEATHER_KEY}`
         })
+        const forecastDestination = await axios({
+            method: "get",
+            url: `https://api.openweathermap.org/data/2.5/forecast?lat=${city_destination.latitude}&lon=${city_destination.longitude}&appid=${process.env.OPENWEATHER_KEY}`
+        })
 
         // GeoDB Cities
         const distance = await axios({

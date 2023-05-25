@@ -9,9 +9,9 @@ npm i           --> Install node modules
 // Minta ENV manual lewat Discord
 
 ### (Sekali setup Migration)
-- npx sequelize-cli db:create
-- npx sequelize-cli db:migrate
-- npx sequelize-cli db:seed:all
+npx sequelize-cli db:create
+npx sequelize-cli db:migrate
+npx sequelize-cli db:seed:all
 
 ### Start project
 npm start
