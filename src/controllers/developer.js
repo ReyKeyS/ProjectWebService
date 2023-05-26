@@ -416,6 +416,13 @@ const addShipping = async (req, res) => {
             method: "get",
             url: `https://api.openweathermap.org/data/2.5/forecast?lat=${city_destination.latitude}&lon=${city_destination.longitude}&appid=${process.env.OPENWEATHER_KEY}`
         })
+        let hasilForecast = []
+        for (const x of forecastDestination.data.list) {
+            hasilForecast.push({
+                weather: x.weather[0].main,
+                time: x.dt_txt
+            })
+        }
 
         // GeoDB Cities
         const distance = await axios({
@@ -436,22 +443,7 @@ const addShipping = async (req, res) => {
         const currMax = await shippings.count({ where: { shipping_id: { [Op.like]: "SP%" } } })
         newID += (parseInt(currMax) + 1).toString().padStart(3, '0');
 
-        // Counting estimated based on Weather
-        let estpisaht;
-        let estMin, estMax;
-        if(est.length >1){
-            estpisaht = est.split('-')
-            let hasilest = parseInt(estpisaht[1]);
-            hasilest++;
-
-            estMin = parseInt(estpisaht[0])
-            estMax = hasilest
-        }else{
-            estMin = parseInt(est)
-            estMax = parseInt(est)++;
-        }
-
-        // Counting Weather Cost
+        //  Counting cost and estimated day based on Weather
         let serv = resultOngkos.data.rajaongkir.results[0].costs
         let cost, est;
         for (const x of serv) {
@@ -461,20 +453,56 @@ const addShipping = async (req, res) => {
                 break;
             }
         }
+        if (cost == undefined || est == undefined) return res.status(400).send({message: `Pengiriman ${service.toUpperCase()} tidak tersedia`})
 
-        // await shippings.create({
-        //     shipping_id: newID,
-        //     city_from: city_from,
-        //     city_to: city_to,
-        //     status: "1",
-        //     cost_min: cost,
-        //     cost_max: cost*2,
-        //     weight: weight,
-        //     estimate_day_min: estMin,
-        //     estimate_day_max: estMax,
-        //     distance: distance.data.data,
-        //     foto_barang: req.namaFile
-        // })
+        let estMin, estMax;
+        if(courier.toLowerCase() == 'jne'){
+            let estSplit = est.split('-')
+            estMin = parseInt(estSplit[0])
+            estMax = parseInt(estSplit[1])
+        }else if(courier.toLowerCase() == 'pos'){
+            let estSplit = est.split(' ')
+            estMin = parseInt(estSplit[0])
+            estMax = parseInt(estSplit[0])
+        }else if(courier.toLowerCase() == 'tiki'){
+            estMin = parseInt(est)
+            estMax = parseInt(est)
+        }
+        const tanggalSkrg = new Date(Date.now())
+        const tglSkrg = tanggalSkrg.getDate()
+        tanggalSkrg.setDate(tanggalSkrg.getDate() + estMax)
+        const tglEst = tanggalSkrg.getDate()
+        
+        let adaHujan = 0
+        for (const x of hasilForecast) {
+            const d = new Date(x.time)
+            if (d.getDate() > tglEst) break;
+
+            if (x.weather == "Rain") adaHujan++;
+        }
+
+        let costMax;
+        if (adaHujan > 0) {
+            costMax = cost*2
+            estMax += 3
+        }else{
+            costMax = cost*1.5
+            estMax += 1
+        }
+       
+        await shippings.create({
+            shipping_id: newID,
+            city_from: city_from,
+            city_to: city_to,
+            status: "1",
+            cost_min: cost,
+            cost_max: costMax,
+            weight: weight,
+            estimate_day_min: estMin,
+            estimate_day_max: estMax,
+            distance: distance.data.data,
+            foto_barang: req.namaFile
+        })
 
         return res.status(200).send({
             message: "Berhasil menambah Shipping",
@@ -484,7 +512,7 @@ const addShipping = async (req, res) => {
                 city_to: resultOngkos.data.rajaongkir.destination_details.city_name,
                 status: "Siap Dikirim",
                 cost_min: cost,
-                cost_max: cost*2,
+                cost_max: costMax,
                 weight: weight,
                 estimate_day_min: estMin,
                 estimate_day_max: estMax,
