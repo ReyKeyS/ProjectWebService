@@ -166,7 +166,7 @@ const subscribe = async (req, res) => {
     }else if (subscription_package.toLowerCase() == "silver"){
         plus = 25; price = 20000
     }else if (subscription_package.toLowerCase() == "gold"){
-        plus = 55; price = 30000
+        plus = 40; price = 30000
     }else return res.status(400).send({message: "Paket Langganan harus Bronze, Silver atau Gold"})
     let newQuota = parseInt(user.api_quota) + parseInt(plus)
 
