@@ -7,8 +7,7 @@ const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
-const db = require("../models/index");
-const conn = db.sequelize
+const conn = require("../databases/connectionStormTrack");
 const { Sequelize, Op, QueryTypes } = require('sequelize')
 const schema = require("../utils/validation/index");
 
@@ -437,16 +436,7 @@ const addShipping = async (req, res) => {
         const currMax = await shippings.count({ where: { shipping_id: { [Op.like]: "SP%" } } })
         newID += (parseInt(currMax) + 1).toString().padStart(3, '0');
 
-        let serv = resultOngkos.data.rajaongkir.results[0].costs
-        let cost, est;
-        for (const x of serv) {
-            if (x.service.toLowerCase() == service.toLowerCase()){
-                cost = x.cost[0].value;
-                est = x.cost[0].etd;
-                break;
-            }
-        }
-
+        // Counting estimated based on Weather
         let estpisaht;
         let estMin, estMax;
         if(est.length >1){
@@ -461,19 +451,30 @@ const addShipping = async (req, res) => {
             estMax = parseInt(est)++;
         }
 
-        await shippings.create({
-            shipping_id: newID,
-            city_from: city_from,
-            city_to: city_to,
-            status: "1",
-            cost_min: cost,
-            cost_max: cost*2,
-            weight: weight,
-            estimate_day_min: estMin,
-            estimate_day_max: estMax,
-            distance: distance.data.data,
-            foto_barang: req.namaFile
-        })
+        // Counting Weather Cost
+        let serv = resultOngkos.data.rajaongkir.results[0].costs
+        let cost, est;
+        for (const x of serv) {
+            if (x.service.toLowerCase() == service.toLowerCase()){
+                cost = x.cost[0].value;
+                est = x.cost[0].etd;
+                break;
+            }
+        }
+
+        // await shippings.create({
+        //     shipping_id: newID,
+        //     city_from: city_from,
+        //     city_to: city_to,
+        //     status: "1",
+        //     cost_min: cost,
+        //     cost_max: cost*2,
+        //     weight: weight,
+        //     estimate_day_min: estMin,
+        //     estimate_day_max: estMax,
+        //     distance: distance.data.data,
+        //     foto_barang: req.namaFile
+        // })
 
         return res.status(200).send({
             message: "Berhasil menambah Shipping",

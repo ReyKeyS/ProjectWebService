@@ -5,8 +5,7 @@ const path = require("path");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
-const db = require("../models/index");
-const conn = db.sequelize
+const conn = require("../databases/connectionStormTrack");
 const { Op, QueryTypes } = require('sequelize')
 const schema = require("../utils/validation/index");
 
