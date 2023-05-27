@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7a9ac203-8d69-4e29-9e7d-1908865cba5b",
+		"_postman_id": "394c72fb-94ca-44ec-aa41-f4bf1f188e19",
 		"name": "ProyekStormTrack",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -542,10 +542,58 @@
 					"response": []
 				},
 				{
+					"name": "Update Courier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "display_name",
+									"value": "RTMS",
+									"type": "default"
+								},
+								{
+									"key": "old_password",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "new_password",
+									"value": "",
+									"type": "default"
+								},
+								{
+									"key": "no_telp",
+									"value": "",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:3000/api/courier/update",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courier",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get Unordered Shipping",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -593,8 +641,30 @@
 				{
 					"name": "Cancel Order",
 					"request": {
-						"method": "GET",
-						"header": []
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfaWQiOiJVUzAwMSIsInVzZXJuYW1lIjoic2FrdWwiLCJkaXNwbGF5X25hbWUiOiJSVE1YIiwicm9sZXMiOiJjb3VyIiwiYXBpX3F1b3RhIjpudWxsLCJlbWFpbCI6bnVsbCwic2FsZG8iOm51bGwsIm5vX3RlbHAiOiIwODEyMzQ1Njc4OTAiLCJwcm9mcGljIjoicHJvZnBpY19zYWt1bC5qcGciLCJzdGF0dXMiOmZhbHNlLCJjcmVhdGVkQXQiOiIyMDIzLTA1LTI3VDEyOjEyOjIyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTA1LTI3VDEyOjEyOjIyLjAwMFoiLCJkZWxldGVkQXQiOm51bGx9LCJpYXQiOjE2ODUxOTEzNDUsImV4cCI6MTY4NTI3Nzc0NX0.TdMVO0Cn5aBvJpTTEIlFzkf2ZmQDmp8gUYjTzWP4mA4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/courier/cancel",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"courier",
+								"cancel"
+							]
+						}
 					},
 					"response": []
 				}

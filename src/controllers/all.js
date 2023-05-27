@@ -63,7 +63,36 @@ const detailShipping = async (req, res) => {
     const ship = await shippings.findByPk(shipping_id)
     if (ship == null) return res.status(404).send({ message: "Pengiriman tidak ditemukan" });
 
-    return res.status(200).send(ship);
+    let tanggal_create=ship.createdAt.toLocaleString()
+    let tanggal_update=ship.updatedAt.toLocaleString()
+    let tanggal_delete
+    ship.updatedAt=new Date(ship.updatedAt.toLocaleString())
+    if (ship.deletedAt) {
+        tanggal_delete=ship.deletedAt.toLocaleString()
+    }
+    else{
+        tanggal_delete=null
+    }
+    
+    // return res.status(200).send(ship);
+    return res.status(200).json({
+        shipping_id:ship.shipping_id,
+        city_from:ship.city_from,
+        city_to:ship.city_to,
+        status:ship.status,
+        cost_min:ship.cost_min,
+        cost_max:ship.cost_max,
+        weight:ship.weight,
+        keterangan:ship.keterangan,
+        estimate_day_min:ship.estimate_day_min,
+        estimate_day_max:ship.estimate_day_max,
+        distance:ship.distance,
+        foto_barang:ship.foto_barang,
+        id_kurir:ship.id_kurir,
+        createdAt:tanggal_create,
+        updatedAt:tanggal_update,
+        deletedAt:tanggal_delete
+    })
 }
 
 const weatherShipping = async (req, res) => {
