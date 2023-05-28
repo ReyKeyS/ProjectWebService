@@ -108,16 +108,15 @@ const updateCourier = async (req, res) => {
     if (!cariUser) {
         return res.status(200).json({ message: "User tidak ditemukan" })
     }
-
+    
     //Cek password
-    const cekPassword = await bcrypt.compare(old_password, cariUser.password);
-    if (!cekPassword) return res.status(400).send({ message: "Password salah" })
+    let cekPassword
+    console.log(new_password);
+    if (new_password==undefined) {
+        cekPassword=await bcrypt.compare(old_password, cariUser.password);
+        if (!cekPassword) return res.status(400).send({ message: "Password salah" })
+    }
 
-    // Password
-    let hashedPassword;
-    await bcrypt.hash(new_password, 10).then((hash) => {
-        hashedPassword = hash;
-    });
     //isi kalau kosong
     if (!display_name) {
         display_name = cariUser.display_name
@@ -129,9 +128,27 @@ const updateCourier = async (req, res) => {
         no_telp = cariUser.no_telp
     }
 
-    let ubah = await users.update({
-        display_name: display_name,
-        password: hashedPassword,
+    if (new_password) {
+        // Password
+        let hashedPassword;
+        await bcrypt.hash(new_password, 10).then((hash) => {
+            hashedPassword = hash;
+        });
+
+        let ubah = await users.update({
+            display_name: display_name,
+            password: hashedPassword,
+            no_telp: no_telp
+        }, {
+            where: {
+                user_id: req.user.user_id
+            }
+        })
+        
+    }
+
+    await users.update({
+        display_name:display_name,
         no_telp: no_telp
     }, {
         where: {
@@ -139,7 +156,6 @@ const updateCourier = async (req, res) => {
         }
     })
 
-    console.log(ubah);
     return res.status(200).json({
         message: "Berhasil Update", data: {
             user_id: req.user.user_id,
