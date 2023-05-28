@@ -14,6 +14,7 @@ const schema = require("../utils/validation/index");
 // Models
 const { users, cities, provinces, shippings } = require("../models");
 
+let linkHosting = "localhost:3000"
 
 const registerDev = async (req, res) => {
     const { username, email, password, confirm_password, display_name } = req.body
@@ -230,7 +231,7 @@ const getCourierParams = async (req, res) => {
         user_id: result.user_id,
         Nama: result.display_name,
         No_Telp: result.no_telp,
-        ProfPic: `localhost:3000/api/getPict?file=${result.profpic}`
+        ProfPic: `${linkHosting}/api/getPict?file=${result.profpic}`
     })
 }
 
@@ -440,8 +441,8 @@ const addShipping = async (req, res) => {
 
         // Generate ID
         let newID = "SP"
-        const currMax = await shippings.count({ where: { shipping_id: { [Op.like]: "SP%" } } })
-        newID += (parseInt(currMax) + 1).toString().padStart(3, '0');
+        const currMax = await conn.query('SELECT count(*) as max FROM shippings', {type: QueryTypes.SELECT})
+        newID += (parseInt(currMax[0].max) + 1).toString().padStart(3, '0');
 
         //  Counting cost and estimated day based on Weather
         let serv = resultOngkos.data.rajaongkir.results[0].costs
@@ -526,8 +527,7 @@ const deleteShipping = async (req, res) => {
     const { shipping_id } = req.params
 
     // Cek shipping
-    const ship = await shippings.findByPk("SP001")
-    console.log(ship);
+    const ship = await shippings.findByPk(shipping_id);
     if (ship == null) return res.status(404).send({message: "Shipping tidak ditemukan"})
 
     await ship.update({status: "0"})

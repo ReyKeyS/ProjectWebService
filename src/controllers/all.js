@@ -14,6 +14,7 @@ const schema = require("../utils/validation/index");
 // Models
 const { users, cities, shippings } = require("../models");
 
+let linkHosting = "localhost:3000"
 
 const loginUser = async (req, res) => {
     const { username, password } = req.body;
@@ -60,38 +61,42 @@ const getLatest = async (req, res) => {
 const detailShipping = async (req, res) => {
     const { shipping_id } = req.params
 
+    // Cek shipping terdaftar
     const ship = await shippings.findByPk(shipping_id)
     if (ship == null) return res.status(404).send({ message: "Pengiriman tidak ditemukan" });
 
-    let tanggal_create=ship.createdAt.toLocaleString()
-    let tanggal_update=ship.updatedAt.toLocaleString()
-    let tanggal_delete
-    ship.updatedAt=new Date(ship.updatedAt.toLocaleString())
-    if (ship.deletedAt) {
-        tanggal_delete=ship.deletedAt.toLocaleString()
+    const city_ori = await cities.findByPk(ship.city_from);
+    const city_dest = await cities.findByPk(ship.city_to);
+
+    let statusShip = ""
+    if (ship.status == '1') statusShip = "Mencari kurir"
+    else if (ship.status == '2') statusShip = "Dalam proses pengiriman"
+    else if (ship.status == '3') statusShip = "Tiba di tujuan"
+
+    // Cek kurir
+    let detailCourier;
+    const kurir = await users.findByPk(ship.id_kurir)
+    if (kurir == null) detailCourier = "NULL"
+    else {
+        detailCourier = {
+            id_kurir: ship.id_kurir,
+            name: kurir.display_name,
+            profPic: `${linkHosting}/api/getPict?file=${kurir.profpic}`
+        }
     }
-    else{
-        tanggal_delete=null
-    }
-    
-    // return res.status(200).send(ship);
+
     return res.status(200).json({
-        shipping_id:ship.shipping_id,
-        city_from:ship.city_from,
-        city_to:ship.city_to,
-        status:ship.status,
-        cost_min:ship.cost_min,
-        cost_max:ship.cost_max,
-        weight:ship.weight,
-        keterangan:ship.keterangan,
-        estimate_day_min:ship.estimate_day_min,
-        estimate_day_max:ship.estimate_day_max,
-        distance:ship.distance,
-        foto_barang:ship.foto_barang,
-        id_kurir:ship.id_kurir,
-        createdAt:tanggal_create,
-        updatedAt:tanggal_update,
-        deletedAt:tanggal_delete
+        shipping_id: ship.shipping_id,
+        status: statusShip,
+        courier: detailCourier,
+        detail: {
+            city_from: city_ori.name,
+            city_to: city_dest.name,
+            cost: 'Rp '+ship.cost_min +' - Rp '+ship.cost_max,
+            etd: ship.estimate_day_min +'-'+ ship.estimate_day_max+' days',
+            distance: ship.distance+" km",
+            picture: `${linkHosting}/api/getPict?file=${ship.foto_barang}`
+        }
     })
 }
 
@@ -120,8 +125,14 @@ const weatherShipping = async (req, res) => {
     })
 
     return res.status(200).send({
-        weather_city_from: weatherOrigin.data,
-        weather_city_to: weatherDestination.data,
+        city_from: {
+            city: city_origin.name,
+            weather_city_from: weatherOrigin.data,
+        },
+        city_to: {
+            city: city_destination.name,
+            weather_city_to: weatherDestination.data,
+        }
     })
 }
 
@@ -133,31 +144,25 @@ const updateShipping = async (req, res) => {
     if (ship == null) return res.status(404).send({ message: "Pengiriman tidak ditemukan" });
 
     // if (status != "Siap Dikirim" && status !="Dalam Pengiriman" && status  != "Tiba di Tujuan") return res.status(400).send({message: "status tidak valid"})
-    if (status != "1" && status != "3") return res.status(400).send({ message: "status tidak valid" })
+    if (status != "1" && status != "3") return res.status(400).send({ message: "Status tidak valid" })
 
     ship.update({ status: status })
 
-    if (status == "1") {
-        let shipKurir = await users.update({
-            status: "0"
-        }, {
-            where:{
-                user_id:ship.id_kurir
-            }
+    let shipKurir = await users.update({
+        status: "0"
+    }, {
+        where:{
+            user_id:ship.id_kurir
         }
-        )
-        ship.update({ id_kurir: null })
-        return res.status(200).send({ message: `Shipping ${shipping_id} sedang Siap Dikirim` })
     }
-    // if(status == "2"){
-    //     return res.status(200).send({message: `Shipping ${shipping_id} sedang Dalam Pengiriman`})
-    // }
-    if (status == "3") {
-        console.log(ship)
+    )
+    ship.update({ id_kurir: null })
+
+    if (status == "1") {
+        return res.status(200).send({ message: `Shipping ${shipping_id} sedang Siap Dikirim` })
+    }else if (status == "3") {
         return res.status(200).send({ message: `Shipping ${shipping_id} sudah Tiba di Tujuan` })
     }
-
-
 }
 
 const getPict = async (req, res) => {
