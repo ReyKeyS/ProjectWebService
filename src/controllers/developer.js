@@ -365,8 +365,8 @@ const getEstimate = async (req, res) => {
 }
 
 const addShipping = async (req, res) => {
-    const shippingKe = await shippings.count()
-    req.gmbrCount = parseInt(shippingKe) + 1
+    const shippingKe = await conn.query(`SELECT count(*) as bnyk from shippings`, {type: QueryTypes.SELECT})
+    req.gmbrCount = parseInt(shippingKe[0].bnyk) + 1;
 
     const uploadingFile = await upload.single("picture")
     uploadingFile(req, res, async (err) => {
@@ -565,7 +565,6 @@ const storage = multer.diskStorage({
         callback(null, folderName);
     },
     filename: (req, file, callback) => {
-        console.log(file);
         const fileExtension = path.extname(file.originalname).toLowerCase();
 
         if (file.fieldname == "picture") {
