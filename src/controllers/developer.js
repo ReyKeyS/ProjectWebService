@@ -111,7 +111,7 @@ const updateDev = async (req, res) => {
         email: newEmail,
     });
 
-    return res.status(201).send({message: "Berhasil terupdate", data: {
+    return res.status(200).send({message: "Berhasil terupdate", data: {
         username: user.username,
         email: newEmail,
         display_name: newName
@@ -147,7 +147,7 @@ const topup = async (req, res) => {
     // Update DB
     await user.update({ saldo: newSaldo });
 
-    return res.status(201).send({message: "Berhasil Topup", data: {
+    return res.status(200).send({message: "Berhasil Topup", data: {
         username: user.username,
         saldo: newSaldo
     }})
@@ -505,7 +505,7 @@ const addShipping = async (req, res) => {
             foto_barang: req.namaFile
         })
 
-        return res.status(200).send({
+        return res.status(201).send({
             message: "Berhasil menambah Shipping",
             data:{
                 shipping_id: newID,
